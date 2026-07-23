@@ -14,7 +14,6 @@ const COLOR_PALETTE: Array[Color] = [
 	Color("f1c40f"), # yellow
 	Color("9b59b6"), # purple
 	Color("e67e22"), # orange
-	Color("ecf0f1"), # white
 	Color("1abc9c"), # teal
 ]
 
@@ -28,6 +27,8 @@ const TIME_PER_EXTRA_CABLE: float = 6.0
 
 var current_level: int = 1
 var score: int = 0
+var last_time_taken: float = 0.0
+var last_score_gained: int = 0
 
 
 func reset_game() -> void:
@@ -63,9 +64,14 @@ func generate_level_colors(level: int) -> Array[Dictionary]:
 	return result
 
 
-func win_level() -> void:
-	score += current_level * 100
+func win_level(time_taken: float) -> void:
+	last_time_taken = time_taken
+	last_score_gained = current_level * 100
+	score += last_score_gained
 	level_won.emit(current_level)
+
+
+func advance_level() -> void:
 	current_level += 1
 
 

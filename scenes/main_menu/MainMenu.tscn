@@ -1,53 +1,59 @@
-[gd_scene load_steps=2 format=3 uid="uid://main_menu_scene"]
+[gd_scene format=3 uid="uid://riaa13qx1x3b"]
 
-[ext_resource type="Script" path="res://scripts/main_menu/MainMenu.gd" id="1"]
+[ext_resource type="Script" uid="uid://bb7t7kxxcgc7a" path="res://scripts/main_menu/MainMenu.gd" id="1"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1499669274]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1835162745]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.14, 0.11, 0.09, 1)
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+color = Color(0.14, 0.11, 0.09, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=2134217213]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=421827462]
 layout_mode = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1909700774]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-horizontal_alignment = 1
 text = "CUT DOWN"
-
-[node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
 horizontal_alignment = 1
-text = "Diffuse the bomb. Cut the cables in the right order."
 
-[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+[node name="Subtitle" type="Label" parent="CenterContainer/VBoxContainer" unique_id=644811898]
+layout_mode = 2
+text = "Diffuse the bomb. Cut the cables in the right order."
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer" unique_id=572917504]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1017755952]
 custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
 text = "Start Game"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
-layout_mode = 2
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1756713783]
 custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
 text = "Quit"

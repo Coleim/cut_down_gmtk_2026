@@ -23,6 +23,13 @@ func _ready() -> void:
 	_level_ended = false
 
 	_spawn_order_display()
+	print("please wait")
+	await get_tree().create_timer(3).timeout
+	print("end wait")
+	
+	_hide_order_display()
+	
+	#_spawn_bomb()
 	_spawn_cables()
 
 	_countdown_timer.wait_time = 1.0
@@ -31,6 +38,11 @@ func _ready() -> void:
 	_update_timer_label()
 
 	SoundManager.play_music("bomb_ambience")
+
+
+func _hide_order_display() -> void: 
+	for child in _order_container.get_children():
+		child.queue_free()
 
 
 func _spawn_order_display() -> void:
@@ -89,14 +101,17 @@ func _on_countdown_tick() -> void:
 
 func _update_timer_label() -> void:
 	_timer_label.text = "Time: %d" % max(0, ceil(_time_left))
+	# TODO: Update the actual timer image
 
 
 func _win_level() -> void:
 	_level_ended = true
 	_countdown_timer.stop()
 	SoundManager.play_sfx("win")
-	GameManager.win_level()
-	get_tree().change_scene_to_file("res://scenes/game/Game.tscn")
+	var time_limit: float = GameManager.get_time_limit(GameManager.current_level)
+	var time_taken: float = time_limit - _time_left
+	GameManager.win_level(time_taken)
+	get_tree().change_scene_to_file("res://scenes/level_complete/LevelComplete.tscn")
 
 
 func _explode() -> void:
