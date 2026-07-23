@@ -1,0 +1,62 @@
+#https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
+name: 'Export Project'
+description: 'Export the project'
+inputs:
+  godot-version:
+    description: 'Version of godot used'
+    required: true
+  export-name:
+    description: 'Name of the exported file'
+    required: true
+  export-type:
+    description: 'Type of export used'
+    required: true
+  release:
+    description: 'Release mode'
+    type: boolean
+    required: true
+    default: false
+  SECRET_RELEASE_KEYSTORE_BASE64:
+    description: 'Secret keystore'
+  SECRET_RELEASE_KEYSTORE_USER:
+    description: 'Secret keystore user'
+  SECRET_RELEASE_KEYSTORE_PASSWORD:
+    description: 'Secret keystore password'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup
+      shell: bash
+      run: |
+        mkdir -v -p ~/.local/share/godot/templates
+        mv /root/.local/share/godot/templates/${{ inputs.godot-version }}.stable ~/.local/share/godot/templates/${{ inputs.godot-version }}.stable
+        ln -s ~/.local/share/godot/templates ~/.local/share/godot/export_templates
+        
+        mkdir -v -p ~/.config/
+        mv /root/.config/godot/ ~/.config/
+    - name: Build Debug
+      shell: bash
+      if: ${{ inputs.release == 'false' }}
+      run: |
+        mkdir -v -p build/${{ inputs.export-type }}
+        godot --headless --editor --quit
+        godot --headless -v --path . --export-debug "${{ inputs.export-type }}" ./build/${{ inputs.export-type }}/${{ inputs.export-name }}
+    - name: Build Release
+      shell: bash
+      env:
+        SECRET_RELEASE_KEYSTORE_BASE64: ${{ inputs.SECRET_RELEASE_KEYSTORE_BASE64 }}
+        SECRET_RELEASE_KEYSTORE_USER: ${{ inputs.SECRET_RELEASE_KEYSTORE_USER }}
+        SECRET_RELEASE_KEYSTORE_PASSWORD: ${{ inputs.SECRET_RELEASE_KEYSTORE_PASSWORD }}
+      if: ${{ inputs.release == 'true' }}
+      run: |
+        echo $SECRET_RELEASE_KEYSTORE_BASE64 | base64 --decode > /root/release.keystore
+        mkdir -v -p build/${{ inputs.export-type }}
+        sed 's@keystore/release=".*"@keystore/release="'/root/release.keystore'"@g' -i export_presets.cfg
+        sed 's@keystore/release_user=".*"@keystore/release_user="'$SECRET_RELEASE_KEYSTORE_USER'"@g' -i export_presets.cfg
+        sed 's@keystore/release_password=".*"@keystore/release_password="'$SECRET_RELEASE_KEYSTORE_PASSWORD'"@g' -i export_presets.cfg
+        godot --headless -v --export-release "${{ inputs.export-type }}" ./build/${{ inputs.export-type }}/${{ inputs.export-name }}
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: ${{ inputs.export-type }}
+        path: build/${{ inputs.export-type }}

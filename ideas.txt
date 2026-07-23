@@ -1,0 +1,12 @@
+- incremental game -> decremental
+- cookie clicker (backward)
+- a bomberman, you are the bomb and got X seconds to kill someone
+- something with going back in time
+- simple plateformer where your life is the remaining time
+- simulator of life but instead you are born as old man and beckoming younger and Younger
+- doing max damage in X time (like you are in a room, you need to destroy the environments or whatever)
+- instead of getting stronger like any rpg whatever , you become weeker
+- a rogue like where you need to loose capacities
+-  logistic game, where as a player your time is realy slow at the start game. But the more times goes, eveything arounds you goes faster (with music will be interesting, starting really slow to fast asf). At the start game, player have time to analyze what he can do, and the times go on, he can start doing things that he planned 
+- a bomb you have to diffuse - more level = more cables to cut - kind of a clicker , steam punk world
+- reverse tetris - remove blocs without everythink falling
