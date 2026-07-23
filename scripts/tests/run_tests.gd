@@ -5,9 +5,12 @@ extends SceneTree
 ## Exits with code 0 if all checks pass, 1 otherwise.
 
 var _failures: Array[String] = []
+var GameManager: Node
 
 
 func _initialize() -> void:
+	await process_frame
+	GameManager = root.get_node("/root/GameManager")
 	_test_game_manager_logic()
 	await process_frame
 	await _test_scenes_load()
