@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://76gdmw8smic4"]
+
+[ext_resource type="Script" uid="uid://cvv4ng5kmkiyg" path="res://scripts/game/Game.gd" id="1"]
+
+[node name="Game" type="Node2D" unique_id=1940360357]
+script = ExtResource("1")
+
+[node name="CountdownTimer" type="Timer" parent="." unique_id=553527443]
+
+[node name="UI" type="Control" parent="." unique_id=378965118]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="UI" unique_id=1665349458]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.08, 0.06, 1)
+
+[node name="TopBar" type="HBoxContainer" parent="UI" unique_id=280457700]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 60.0
+
+[node name="LevelLabel" type="Label" parent="UI/TopBar" unique_id=128945628]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "Level 1"
+
+[node name="TimerLabel" type="Label" parent="UI/TopBar" unique_id=1960281429]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "Time: 30"
+horizontal_alignment = 2
+
+[node name="OrderLabel" type="Label" parent="UI" unique_id=833080425]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 389.0
+offset_top = 34.0
+offset_right = 557.0
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Cut order:"
+horizontal_alignment = 1
+
+[node name="OrderContainer" type="HBoxContainer" parent="UI" unique_id=1955011301]
+layout_mode = 1
+offset_left = 535.0
+offset_top = 23.0
+offset_right = 913.0
+offset_bottom = 83.0
+alignment = 1
+
+[node name="BombRect" type="ColorRect" parent="UI" unique_id=874574640]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 463.0
+offset_top = 163.0
+offset_right = 800.0
+offset_bottom = 274.0
+grow_horizontal = 2
+color = Color(0.22637272, 0.15488169, 0.76437706, 1)
+
+[node name="CablesContainer" type="HBoxContainer" parent="UI" unique_id=383513893]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 329.0
+offset_top = 272.0
+offset_right = 829.0
+offset_bottom = 472.0
+grow_horizontal = 2
+alignment = 1
