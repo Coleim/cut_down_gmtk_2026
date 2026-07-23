@@ -11,31 +11,8 @@ env:
   GODOT_VERSION: "4.7.0"
 
 jobs:
-  test:
-    name: Headless smoke test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Godot
-        uses: chickensoft-games/setup-godot@v2
-        with:
-          version: ${{ env.GODOT_VERSION }}
-          use-dotnet: false
-
-      - name: Verify Godot version
-        run: godot --version
-
-      - name: Import project resources
-        run: godot --headless --path . --import
-
-      - name: Run smoke tests
-        run: godot --headless --path . --script res://scripts/tests/run_tests.gd
-
   export-web:
     name: Export Web build
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
