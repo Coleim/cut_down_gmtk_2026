@@ -1,12 +1,16 @@
 extends Control
 
-@onready var _score_label: Label = $CenterContainer/VBoxContainer/ScoreLabel
-@onready var _retry_button: Button = $CenterContainer/VBoxContainer/RetryButton
-@onready var _menu_button: Button = $CenterContainer/VBoxContainer/MenuButton
+@onready var _score_label: Label = $ScoreLabel
+@onready var _time_label: Label = $TimeLabel
+@onready var _cablecut_label: Label = $CableCutLabel
+@onready var _retry_button: TextureButton = $RetryButton
+@onready var _menu_button: TextureButton = $MenuButton
 
 
 func _ready() -> void:
-	_score_label.text = "Score: %d" % GameManager.score
+	_score_label.text = "%d" % GameManager.score
+	_time_label.text = "%.1fs" % GameManager.last_time_taken
+	_cablecut_label.text = "%d" % GameManager.last_cables_cut
 	_retry_button.pressed.connect(_on_retry_pressed)
 	_menu_button.pressed.connect(_on_menu_pressed)
 

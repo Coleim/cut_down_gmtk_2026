@@ -45,12 +45,12 @@ func _ready() -> void:
 	_countdown_timer.timeout.connect(_on_countdown_tick)
 	_countdown_timer.start()
 
-	SoundManager.play_music("bomb_ambience")
+	SoundManager.play_music("click_bomb", true)
 
 
 func _setup_level_sprite() -> void:
 	_level_sprite.animation = "default"
-	_level_sprite.frame = clampi(GameManager.current_level - 1, 0, 8)
+	_level_sprite.frame = clampi(GameManager.current_level - 1, 0, 8) if GameManager.current_level <= 9 else 9
 
 
 func _spawn_cables() -> void:
@@ -62,10 +62,16 @@ func _spawn_cables() -> void:
 
 	for entry in shuffled:
 		var cable: Cable = CABLE_SCENE.instantiate()
-		_cables_container.add_child(cable)
 		cable.cable_color = entry["color"]
 		cable.color_name = entry["name"]
+		cable.color_index = entry["color_index"]
+		_cables_container.add_child(cable)
+		cable.set_frame(entry["color_index"])
 		cable.cut.connect(_on_cable_cut)
+		
+		print("cable_color: ", cable.cable_color)
+		print("color_name: ", cable.color_name)
+		print("color_index: ", cable.color_index)
 
 
 func _on_cable_cut(cable: Cable) -> void:
@@ -98,6 +104,7 @@ func _on_countdown_tick() -> void:
 func _win_level() -> void:
 	_level_ended = true
 	_countdown_timer.stop()
+	SoundManager.stop_music()
 	SoundManager.play_sfx("win")
 	var time_limit: float = GameManager.get_time_limit(GameManager.current_level)
 	var time_taken: float = time_limit - _time_left
@@ -108,7 +115,10 @@ func _win_level() -> void:
 func _explode() -> void:
 	_level_ended = true
 	_countdown_timer.stop()
+	SoundManager.stop_music()
 	SoundManager.play_sfx("explosion")
 	_bomb_rect.color = Color.BLACK
-	GameManager.lose_level()
+	var time_limit: float = GameManager.get_time_limit(GameManager.current_level)
+	var time_taken: float = time_limit - _time_left
+	GameManager.lose_level(time_taken, _cut_index)
 	get_tree().change_scene_to_file("res://scenes/game_over/GameOver.tscn")

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvv4ng5kmkiyg" path="res://scripts/game/Game.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dtaj0ekvfxaq6" path="res://assets/sprites/Color_Selector.png" id="2_365ku"]
+[ext_resource type="Texture2D" uid="uid://dw427rckeglpe" path="res://assets/sprites/Backgrounds.png" id="2_gg4pt"]
 [ext_resource type="Texture2D" uid="uid://dwrcmjaeop3q0" path="res://assets/sprites/LevelPanel.png" id="2_vrspl"]
 [ext_resource type="Texture2D" uid="uid://cy48yyfawapmq" path="res://assets/sprites/Colors.png" id="3_gg4pt"]
 [ext_resource type="Texture2D" uid="uid://ccamhedq7wa42" path="res://assets/sprites/CutText.png" id="3_wnrko"]
@@ -86,6 +87,10 @@ region = Rect2(0, 1400, 300, 200)
 atlas = ExtResource("6_365ku")
 region = Rect2(0, 1600, 300, 200)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysuoy"]
+atlas = ExtResource("6_365ku")
+region = Rect2(0, 1800, 300, 200)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_vdwqs"]
 animations = [{
 "frames": [{
@@ -115,6 +120,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pbrru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysuoy")
 }],
 "loop": 1,
 "name": &"default",
@@ -125,6 +133,10 @@ animations = [{
 script = ExtResource("1")
 
 [node name="CountdownTimer" type="Timer" parent="." unique_id=874794337]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1191058118]
+position = Vector2(576, 324)
+texture = ExtResource("2_gg4pt")
 
 [node name="ColorSelector" type="Sprite2D" parent="." unique_id=1712473233]
 position = Vector2(607, 89)
@@ -189,6 +201,6 @@ anchor_right = 0.5
 offset_left = 329.0
 offset_top = 272.0
 offset_right = 829.0
-offset_bottom = 472.0
+offset_bottom = 652.0
 grow_horizontal = 2
 alignment = 1

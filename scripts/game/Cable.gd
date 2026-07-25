@@ -1,37 +1,32 @@
 extends Control
 class_name Cable
 
-## A single cuttable cable. Emits `cut` when clicked (only once).
-
 signal cut(cable: Cable)
 
-@export var cable_color: Color = Color.WHITE:
-	set(value):
-		cable_color = value
-		if is_node_ready():
-			_update_visual()
-
+@export var cable_color: Color = Color.WHITE
 var color_name: String = ""
+var color_index: int = 0
 var is_cut: bool = false
 
-@onready var _rect: ColorRect = $ColorRect
-@onready var _button: Button = $Button
+@onready var _sprite: AnimatedSprite2D = $Cables
 
 
 func _ready() -> void:
-	_update_visual()
-	_button.pressed.connect(_on_pressed)
+	_sprite.animation = "full"
+	_sprite.stop()
 
 
-func _update_visual() -> void:
-	if _rect:
-		_rect.color = cable_color
+func set_frame(idx: int) -> void:
+	color_index = idx
+	_sprite.frame = idx
 
 
-func _on_pressed() -> void:
-	if is_cut:
-		return
-	is_cut = true
-	_rect.color = Color.WHITE
-	_button.disabled = true
-	cut.emit(self)
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if is_cut:
+			return
+		is_cut = true
+		_sprite.animation = "cut"
+		_sprite.stop()
+		_sprite.frame = color_index
+		cut.emit(self)

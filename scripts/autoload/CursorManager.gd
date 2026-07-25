@@ -8,7 +8,7 @@ var _cursor: AnimatedSprite2D
 
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 	_cursor = AnimatedSprite2D.new()
 	_cursor.z_index = 100
@@ -29,11 +29,11 @@ func _setup_frames() -> void:
 
 	var frame0 := AtlasTexture.new()
 	frame0.atlas = texture
-	frame0.region = Rect2(0, 0, 100, 100)   # frame 1 = closed
+	frame0.region = Rect2(0, 0, 99, 99)   # frame 1 = closed
 
 	var frame1 := AtlasTexture.new()
 	frame1.atlas = texture
-	frame1.region = Rect2(0, 100, 100, 100) # frame 2 = open
+	frame1.region = Rect2(0, 101, 100, 100) # frame 2 = open
 
 	frames.add_animation("default")
 	frames.set_animation_loop("default", false)
