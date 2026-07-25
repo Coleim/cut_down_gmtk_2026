@@ -9,7 +9,8 @@ const CABLE_SCENE: PackedScene = preload("res://scenes/game/Cable.tscn")
 @onready var _show_color: AnimatedSprite2D = $ShowColor
 @onready var _cut_text: Sprite2D = $ColorSelector/CutText
 
-var _cable_order: Array[Dictionary] = []
+var _cable_order: Array[Dictionary] = []   # colors the player must cut, in order
+var _displayed_cables: Array[Dictionary] = []  # all cables shown on screen
 var _cut_index: int = 0
 var _time_left: float = 0.0
 var _level_ended: bool = false
@@ -18,7 +19,9 @@ var _level_ended: bool = false
 func _ready() -> void:
 	_setup_level_sprite()
 
-	_cable_order = GameManager.generate_level_colors(GameManager.current_level)
+	var level_data: Dictionary = GameManager.generate_level_colors(GameManager.current_level)
+	_cable_order = level_data["to_cut"]
+	_displayed_cables = level_data["displayed"]
 	_time_left = GameManager.get_time_limit(GameManager.current_level)
 	_cut_index = 0
 	_level_ended = false
@@ -27,7 +30,7 @@ func _ready() -> void:
 	_cables_container.visible = false
 	_cut_text.visible = false
 
-	# Show each color in order for 1 second
+	# Show each color to cut, 1 second each
 	for entry in _cable_order:
 		_show_color.frame = entry["color_index"]
 		await get_tree().create_timer(1.0).timeout
@@ -47,14 +50,14 @@ func _ready() -> void:
 
 func _setup_level_sprite() -> void:
 	_level_sprite.animation = "default"
-	_level_sprite.frame = clampi(GameManager.current_level - 1, 0, 2)
+	_level_sprite.frame = clampi(GameManager.current_level - 1, 0, 8)
 
 
 func _spawn_cables() -> void:
 	for child in _cables_container.get_children():
 		child.queue_free()
 
-	var shuffled: Array[Dictionary] = _cable_order.duplicate()
+	var shuffled := _displayed_cables.duplicate()
 	shuffled.shuffle()
 
 	for entry in shuffled:
