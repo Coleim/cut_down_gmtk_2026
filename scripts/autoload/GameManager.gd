@@ -8,17 +8,15 @@ signal level_won(level_number: int)
 signal level_lost(level_number: int)
 
 const COLOR_PALETTE: Array[Color] = [
-	Color("e74c3c"), # red
-	Color("2ecc71"), # green
-	Color("3498db"), # blue
-	Color("f1c40f"), # yellow
-	Color("9b59b6"), # purple
-	Color("e67e22"), # orange
-	Color("1abc9c"), # teal
+	Color("ac3232"), # red
+	Color("639bff"), # blue
+	Color("99e550"), # green
+	Color("fbf236"), # yellow
+	Color("d77bba"), # purple
 ]
 
 const COLOR_NAMES: Array[String] = [
-	"red", "green", "blue", "yellow", "purple", "orange", "white", "teal"
+	"red", "blue", "green", "yellow", "purple"
 ]
 
 const BASE_CABLE_COUNT: int = 3
@@ -60,6 +58,7 @@ func generate_level_colors(level: int) -> Array[Dictionary]:
 		result.append({
 			"color": COLOR_PALETTE[idx],
 			"name": COLOR_NAMES[idx],
+			"color_index": idx,
 		})
 	return result
 

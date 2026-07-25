@@ -3,11 +3,11 @@ extends Node2D
 const CABLE_SCENE: PackedScene = preload("res://scenes/game/Cable.tscn")
 
 @onready var _cables_container: HBoxContainer = $UI/CablesContainer
-@onready var _order_container: HBoxContainer = $UI/OrderContainer
-@onready var _timer_label: Label = $UI/TopBar/TimerLabel
-@onready var _level_label: Label = $UI/TopBar/LevelLabel
 @onready var _bomb_rect: ColorRect = $UI/BombRect
 @onready var _countdown_timer: Timer = $CountdownTimer
+@onready var _level_sprite: AnimatedSprite2D = $LevelSprite
+@onready var _show_color: AnimatedSprite2D = $ShowColor
+@onready var _cut_text: Sprite2D = $ColorSelector/CutText
 
 var _cable_order: Array[Dictionary] = []
 var _cut_index: int = 0
@@ -16,44 +16,38 @@ var _level_ended: bool = false
 
 
 func _ready() -> void:
-	_level_label.text = "Level %d" % GameManager.current_level
+	_setup_level_sprite()
+
 	_cable_order = GameManager.generate_level_colors(GameManager.current_level)
 	_time_left = GameManager.get_time_limit(GameManager.current_level)
 	_cut_index = 0
 	_level_ended = false
 
-	_spawn_order_display()
-	print("please wait")
-	await get_tree().create_timer(3).timeout
-	print("end wait")
-	
-	_hide_order_display()
-	
-	#_spawn_bomb()
+	# Hide cables and cut text during color preview
+	_cables_container.visible = false
+	_cut_text.visible = false
+
+	# Show each color in order for 1 second
+	for entry in _cable_order:
+		_show_color.frame = entry["color_index"]
+		await get_tree().create_timer(1.0).timeout
+
+	# Preview done — show cables and cut prompt
+	_show_color.visible = false
+	_cut_text.visible = true
+	_cables_container.visible = true
 	_spawn_cables()
 
 	_countdown_timer.wait_time = 1.0
 	_countdown_timer.timeout.connect(_on_countdown_tick)
 	_countdown_timer.start()
-	_update_timer_label()
 
 	SoundManager.play_music("bomb_ambience")
 
 
-func _hide_order_display() -> void: 
-	for child in _order_container.get_children():
-		child.queue_free()
-
-
-func _spawn_order_display() -> void:
-	for child in _order_container.get_children():
-		child.queue_free()
-
-	for entry in _cable_order:
-		var swatch := ColorRect.new()
-		swatch.custom_minimum_size = Vector2(50, 50)
-		swatch.color = entry["color"]
-		_order_container.add_child(swatch)
+func _setup_level_sprite() -> void:
+	_level_sprite.animation = "default"
+	_level_sprite.frame = clampi(GameManager.current_level - 1, 0, 2)
 
 
 func _spawn_cables() -> void:
@@ -93,15 +87,9 @@ func _on_countdown_tick() -> void:
 		return
 
 	_time_left -= 1.0
-	_update_timer_label()
 
 	if _time_left <= 0:
 		_explode()
-
-
-func _update_timer_label() -> void:
-	_timer_label.text = "Time: %d" % max(0, ceil(_time_left))
-	# TODO: Update the actual timer image
 
 
 func _win_level() -> void:

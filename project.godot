@@ -19,9 +19,11 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/autoload/GameManager.gd"
 SoundManager="*res://scripts/autoload/SoundManager.gd"
+CursorManager="*res://scripts/autoload/CursorManager.gd"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
