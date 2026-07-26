@@ -23,9 +23,10 @@ CursorManager="*res://scripts/autoload/CursorManager.gd"
 
 [display]
 
-window/size/mode=2
+window/size/viewport_width=1152
+window/size/viewport_height=648
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep"
 
 [physics]
 

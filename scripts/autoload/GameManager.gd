@@ -21,21 +21,22 @@ const COLOR_NAMES: Array[String] = [
 
 # Per-level config: [displayed_count, cut_count, time_limit]
 const LEVEL_CONFIG: Array = [
-	[1, 1, 20.0], # Level 1
-	[2, 2, 20.0], # Level 2
-	[3, 3, 20.0], # Level 3
-	[4, 3, 20.0], # Level 4
-	[4, 4, 20.0], # Level 5
-	[5, 3, 20.0], # Level 6
-	[5, 4, 20.0], # Level 7
-	[5, 5, 20.0], # Level 8
-	[5, 5, 10.0], # Level 9 (same as 8 but 10s less)
+	[1, 1, 10.0], # Level 1
+	[2, 2, 10.0], # Level 2
+	[3, 3, 10.0], # Level 3
+	[4, 3, 10.0], # Level 4
+	[4, 4, 10.0], # Level 5
+	[5, 3, 10.0], # Level 6
+	[5, 4, 10.0], # Level 7
+	[5, 5, 10.0], # Level 8
+	[5, 5, 5.0],  # Level 9 (last level, 5 seconds)
 ]
 
 var current_level: int = 1
 var score: int = 0
 var last_time_taken: float = 0.0
 var last_score_gained: int = 0
+var last_cables_cut: int = 0
 
 
 func reset_game() -> void:
@@ -44,7 +45,7 @@ func reset_game() -> void:
 
 
 func _get_config(level: int) -> Array:
-	var idx := clampi(level - 1, 0, LEVEL_CONFIG.size() - 1)
+	var idx := mini(level - 1, LEVEL_CONFIG.size() - 1)
 	return LEVEL_CONFIG[idx]
 
 
@@ -99,6 +100,7 @@ func _make_entry(idx: int) -> Dictionary:
 
 func win_level(time_taken: float) -> void:
 	last_time_taken = time_taken
+	last_cables_cut = get_cut_count(current_level)
 	last_score_gained = current_level * 100
 	score += last_score_gained
 	level_won.emit(current_level)
@@ -108,5 +110,7 @@ func advance_level() -> void:
 	current_level += 1
 
 
-func lose_level() -> void:
+func lose_level(time_taken: float, cables_cut: int) -> void:
+	last_time_taken = time_taken
+	last_cables_cut = cables_cut
 	level_lost.emit(current_level)

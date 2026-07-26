@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://riaa13qx1x3b"]
 
 [ext_resource type="Script" uid="uid://bb7t7kxxcgc7a" path="res://scripts/main_menu/MainMenu.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dw427rckeglpe" path="res://assets/sprites/Backgrounds.png" id="2_f1mbi"]
 [ext_resource type="Texture2D" uid="uid://uolhcuixnycv" path="res://assets/sprites/HomePageLogo.png" id="2_qmweu"]
 [ext_resource type="Texture2D" uid="uid://bfyk6p6fbrril" path="res://assets/sprites/Start.png" id="3_f1mbi"]
 [ext_resource type="Texture2D" uid="uid://bekdewgblulkk" path="res://assets/sprites/Quit.png" id="4_oitky"]
@@ -24,6 +25,10 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.14, 0.11, 0.09, 1)
 
+[node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=1998553783]
+position = Vector2(576, 324)
+texture = ExtResource("2_f1mbi")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=450342072]
 position = Vector2(561.99994, 253.99997)
 scale = Vector2(0.84117645, 0.84117645)
@@ -31,16 +36,16 @@ texture = ExtResource("2_qmweu")
 
 [node name="StartButton" type="TextureButton" parent="." unique_id=1033264887]
 layout_mode = 0
-offset_left = 331.0
-offset_top = 524.0
-offset_right = 531.0
-offset_bottom = 624.0
+offset_left = 595.0
+offset_top = 531.0
+offset_right = 795.0
+offset_bottom = 631.0
 texture_normal = ExtResource("3_f1mbi")
 
 [node name="QuitButton" type="TextureButton" parent="." unique_id=1404274333]
 layout_mode = 0
-offset_left = 627.0
+offset_left = 345.0
 offset_top = 530.0
-offset_right = 827.0
+offset_right = 545.0
 offset_bottom = 630.0
 texture_normal = ExtResource("4_oitky")
