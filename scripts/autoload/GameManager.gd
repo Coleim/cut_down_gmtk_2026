@@ -26,9 +26,9 @@ const LEVEL_CONFIG: Array = [
 	[3, 3, 10.0], # Level 3
 	[4, 3, 10.0], # Level 4
 	[4, 4, 10.0], # Level 5
-	[5, 3, 10.0], # Level 6
-	[5, 4, 10.0], # Level 7
-	[5, 5, 10.0], # Level 8
+	[5, 3, 9.0], # Level 6
+	[5, 4, 8.0], # Level 7
+	[5, 5, 8.0], # Level 8
 	[5, 5, 5.0],  # Level 9 (last level, 5 seconds)
 ]
 

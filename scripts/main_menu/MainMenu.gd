@@ -5,7 +5,7 @@ extends Control
 
 
 func _ready() -> void:
-	GameManager.reset_game()
+	#GameManager.reset_game() # TODO: re-enable before shipping
 	_start_button.pressed.connect(_on_start_pressed)
 	_quit_button.pressed.connect(_on_quit_pressed)
 

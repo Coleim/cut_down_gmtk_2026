@@ -8,7 +8,7 @@ var _cursor: AnimatedSprite2D
 
 
 func _ready() -> void:
-	#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 	_cursor = AnimatedSprite2D.new()
 	_cursor.z_index = 100

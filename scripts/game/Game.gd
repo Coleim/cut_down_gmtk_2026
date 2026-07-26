@@ -3,17 +3,21 @@ extends Node2D
 const CABLE_SCENE: PackedScene = preload("res://scenes/game/Cable.tscn")
 
 @onready var _cables_container: HBoxContainer = $UI/CablesContainer
-@onready var _bomb_rect: ColorRect = $UI/BombRect
 @onready var _countdown_timer: Timer = $CountdownTimer
 @onready var _level_sprite: AnimatedSprite2D = $LevelSprite
-@onready var _show_color: AnimatedSprite2D = $ShowColor
+@onready var _show_color: AnimatedSprite2D = $ColorSelector/ShowColor
 @onready var _cut_text: Sprite2D = $ColorSelector/CutText
+@onready var _sec_tens: AnimatedSprite2D = $UI/TimerContainerSeconds/Number1
+@onready var _sec_units: AnimatedSprite2D = $UI/TimerContainerSeconds/Number0
+@onready var _ms_tens: AnimatedSprite2D = $UI/TimerContainerMs/Number1
+@onready var _ms_units: AnimatedSprite2D = $UI/TimerContainerMs/Number0
 
-var _cable_order: Array[Dictionary] = []   # colors the player must cut, in order
-var _displayed_cables: Array[Dictionary] = []  # all cables shown on screen
+var _cable_order: Array[Dictionary] = []
+var _displayed_cables: Array[Dictionary] = []
 var _cut_index: int = 0
 var _time_left: float = 0.0
 var _level_ended: bool = false
+var _timer_running: bool = false
 
 
 func _ready() -> void:
@@ -25,27 +29,59 @@ func _ready() -> void:
 	_time_left = GameManager.get_time_limit(GameManager.current_level)
 	_cut_index = 0
 	_level_ended = false
+	_timer_running = false
 
-	# Hide cables and cut text during color preview
-	_cables_container.visible = false
+	# Show initial time before anything starts
+	call_deferred("_update_timer_display")
+
+	# Hide only cut text during color preview
 	_cut_text.visible = false
+	_spawn_cables(false)
 
 	# Show each color to cut, 1 second each
 	for entry in _cable_order:
 		_show_color.frame = entry["color_index"]
 		await get_tree().create_timer(1.0).timeout
 
-	# Preview done — show cables and cut prompt
+	# Preview done — enable cutting, show cut prompt, start timer
 	_show_color.visible = false
 	_cut_text.visible = true
-	_cables_container.visible = true
-	_spawn_cables()
-
-	_countdown_timer.wait_time = 1.0
-	_countdown_timer.timeout.connect(_on_countdown_tick)
-	_countdown_timer.start()
-
+	_enable_cables()
+	_timer_running = true
 	SoundManager.play_music("click_bomb", true)
+
+
+func _process(delta: float) -> void:
+	if not _timer_running or _level_ended:
+		return
+
+	_time_left -= delta
+	_update_timer_display()
+
+	if _time_left <= 0.0:
+		_time_left = 0.0
+		_update_timer_display()
+		_explode()
+
+
+func _update_timer_display() -> void:
+	var t := maxf(_time_left, 0.0)
+	var secs := int(t)
+	var ms := int(roundf(fmod(t, 1.0) * 100.0))
+	if ms >= 100:
+		ms = 0
+
+	_sec_tens.stop()
+	_sec_tens.frame = clampi(secs / 10, 0, 9)
+
+	_sec_units.stop()
+	_sec_units.frame = secs % 10
+
+	_ms_tens.stop()
+	_ms_tens.frame = ms / 10
+
+	_ms_units.stop()
+	_ms_units.frame = ms % 10
 
 
 func _setup_level_sprite() -> void:
@@ -53,9 +89,10 @@ func _setup_level_sprite() -> void:
 	_level_sprite.frame = clampi(GameManager.current_level - 1, 0, 8) if GameManager.current_level <= 9 else 9
 
 
-func _spawn_cables() -> void:
+func _spawn_cables(interactable: bool = true) -> void:
 	for child in _cables_container.get_children():
-		child.queue_free()
+		if child is Cable:
+			child.queue_free()
 
 	var shuffled := _displayed_cables.duplicate()
 	shuffled.shuffle()
@@ -65,13 +102,16 @@ func _spawn_cables() -> void:
 		cable.cable_color = entry["color"]
 		cable.color_name = entry["name"]
 		cable.color_index = entry["color_index"]
+		cable.interactable = interactable
 		_cables_container.add_child(cable)
 		cable.set_frame(entry["color_index"])
 		cable.cut.connect(_on_cable_cut)
-		
-		print("cable_color: ", cable.cable_color)
-		print("color_name: ", cable.color_name)
-		print("color_index: ", cable.color_index)
+
+
+func _enable_cables() -> void:
+	for child in _cables_container.get_children():
+		if child is Cable:
+			child.interactable = true
 
 
 func _on_cable_cut(cable: Cable) -> void:
@@ -91,19 +131,9 @@ func _on_cable_cut(cable: Cable) -> void:
 		_explode()
 
 
-func _on_countdown_tick() -> void:
-	if _level_ended:
-		return
-
-	_time_left -= 1.0
-
-	if _time_left <= 0:
-		_explode()
-
-
 func _win_level() -> void:
 	_level_ended = true
-	_countdown_timer.stop()
+	_timer_running = false
 	SoundManager.stop_music()
 	SoundManager.play_sfx("win")
 	var time_limit: float = GameManager.get_time_limit(GameManager.current_level)
@@ -114,10 +144,9 @@ func _win_level() -> void:
 
 func _explode() -> void:
 	_level_ended = true
-	_countdown_timer.stop()
+	_timer_running = false
 	SoundManager.stop_music()
 	SoundManager.play_sfx("explosion")
-	_bomb_rect.color = Color.BLACK
 	var time_limit: float = GameManager.get_time_limit(GameManager.current_level)
 	var time_taken: float = time_limit - _time_left
 	GameManager.lose_level(time_taken, _cut_index)

@@ -6,6 +6,7 @@ signal cut(cable: Cable)
 @export var cable_color: Color = Color.WHITE
 var color_name: String = ""
 var color_index: int = 0
+var interactable: bool = true
 var is_cut: bool = false
 
 @onready var _sprite: AnimatedSprite2D = $Cables
@@ -23,7 +24,7 @@ func set_frame(idx: int) -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if is_cut:
+		if is_cut or not interactable:
 			return
 		is_cut = true
 		_sprite.animation = "cut"
