@@ -1,8 +1,92 @@
-[gd_scene load_steps=2 format=3 uid="uid://cable_scene"]
+[gd_scene format=3 uid="uid://ppb4t64ashe6"]
 
-[ext_resource type="Script" path="res://scripts/game/Cable.gd" id="1"]
+[ext_resource type="Script" uid="uid://d2wpv0xxtufgs" path="res://scripts/game/Cable.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cpo6h6svj137g" path="res://assets/sprites/Cables.png" id="2_bhg84"]
 
-[node name="Cable" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_full_red"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 600, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_full_blue"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 2400, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_full_green"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 0, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_full_yellow"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 1800, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_full_purple"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 1200, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cut_red"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 3600, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cut_blue"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 5400, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cut_green"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 3000, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cut_yellow"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 4200, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cut_purple"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 4800, 50, 600)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vdwqs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cut_red")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cut_blue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cut_green")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cut_yellow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cut_purple")
+}],
+"loop": 1,
+"name": &"cut",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_full_red")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_full_blue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_full_green")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_full_yellow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_full_purple")
+}],
+"loop": 1,
+"name": &"full",
+"speed": 5.0
+}]
+
+[node name="Cable" type="Control" unique_id=1600611072]
 custom_minimum_size = Vector2(80, 200)
 layout_mode = 3
 anchors_preset = 0
@@ -10,18 +94,7 @@ offset_right = 80.0
 offset_bottom = 200.0
 script = ExtResource("1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(1, 0, 0, 1)
-mouse_filter = 2
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-flat = true
-text = ""
+[node name="Cables" type="AnimatedSprite2D" parent="." unique_id=254386696]
+position = Vector2(38, 301)
+sprite_frames = SubResource("SpriteFrames_vdwqs")
+animation = &"full"

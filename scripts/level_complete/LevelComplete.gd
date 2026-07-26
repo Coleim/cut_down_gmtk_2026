@@ -1,15 +1,17 @@
 extends Control
 
-@onready var _time_label: Label = $CenterContainer/VBoxContainer/TimeLabel
-@onready var _score_label: Label = $CenterContainer/VBoxContainer/ScoreLabel
-@onready var _next_button: Button = $CenterContainer/VBoxContainer/NextButton
-@onready var _retry_button: Button = $CenterContainer/VBoxContainer/RetryButton
-@onready var _menu_button: Button = $CenterContainer/VBoxContainer/MenuButton
+@onready var _time_label: Label = $TimeLabel
+@onready var _score_label: Label = $ScoreLabel
+@onready var _cablecut_label: Label = $CableCutLabel
+@onready var _next_button: TextureButton = $NextButton
+@onready var _retry_button: TextureButton = $RetryButton
+@onready var _menu_button: TextureButton = $MenuButton
 
 
 func _ready() -> void:
-	_time_label.text = "Time to defuse: %.1fs" % GameManager.last_time_taken
-	_score_label.text = "Score: %d (+%d)" % [GameManager.score, GameManager.last_score_gained]
+	_time_label.text = "%.1fs" % GameManager.last_time_taken
+	_score_label.text = "%d (+%d)" % [GameManager.score, GameManager.last_score_gained]
+	_cablecut_label.text = "%d" % GameManager.last_cables_cut
 	_next_button.pressed.connect(_on_next_pressed)
 	_retry_button.pressed.connect(_on_retry_pressed)
 	_menu_button.pressed.connect(_on_menu_pressed)

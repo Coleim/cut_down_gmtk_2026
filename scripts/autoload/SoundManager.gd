@@ -37,9 +37,14 @@ func play_sfx(sound_name: String) -> void:
 		print("[SoundManager] (placeholder) play sfx: %s" % sound_name)
 
 
-func play_music(sound_name: String) -> void:
+func play_music(sound_name: String, loop: bool = false) -> void:
 	var stream: AudioStream = sounds.get(sound_name)
+	if stream == null:
+		# Try loading directly by path convention
+		stream = load("res://assets/music/%s.mp3" % sound_name)
 	if stream:
+		if stream is AudioStreamMP3:
+			(stream as AudioStreamMP3).loop = loop
 		_music_player.stream = stream
 		_music_player.play()
 	else:
