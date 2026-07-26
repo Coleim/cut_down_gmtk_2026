@@ -231,7 +231,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="BombRect" type="Sprite2D" parent="UI" unique_id=812027232]
-position = Vector2(560, 275)
+position = Vector2(561, 320)
 scale = Vector2(0.6345703, 0.6345703)
 texture = ExtResource("3_gynul")
 
@@ -240,10 +240,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 345.0
-offset_top = 458.0
-offset_right = 817.0
-offset_bottom = 808.0
+offset_left = 348.0
+offset_top = 504.0
+offset_right = 820.0
+offset_bottom = 854.0
 grow_horizontal = 2
 alignment = 1
 
@@ -253,7 +253,7 @@ scale = Vector2(0.6146265, 0.6146265)
 texture = ExtResource("8_wnrko")
 
 [node name="TimerContainerMs" type="Sprite2D" parent="UI" unique_id=1388752044]
-position = Vector2(667.40826, 359.75)
+position = Vector2(677.40826, 398.75)
 scale = Vector2(0.55485237, 0.5548523)
 texture = ExtResource("9_aptqa")
 
@@ -266,7 +266,7 @@ position = Vector2(-55.870712, 1.8022814)
 sprite_frames = SubResource("SpriteFrames_xfgu8")
 
 [node name="TimerContainerSeconds" type="Sprite2D" parent="UI" unique_id=83826955]
-position = Vector2(482.40823, 359.75)
+position = Vector2(492.40823, 398.75)
 scale = Vector2(0.55485237, 0.5548523)
 texture = ExtResource("9_aptqa")
 
@@ -279,12 +279,12 @@ position = Vector2(-55.870712, 1.8022814)
 sprite_frames = SubResource("SpriteFrames_xfgu8")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI" unique_id=1333494259]
-position = Vector2(573.4081, 362.75003)
+position = Vector2(583.4081, 401.75003)
 scale = Vector2(0.537037, 0.5370371)
 texture = ExtResource("11_60iot")
 
 [node name="ColorSelector" type="Sprite2D" parent="." unique_id=1712473233]
-position = Vector2(576, 89)
+position = Vector2(450, 83)
 texture = ExtResource("2_365ku")
 
 [node name="CutText" type="Sprite2D" parent="ColorSelector" unique_id=1192091202]

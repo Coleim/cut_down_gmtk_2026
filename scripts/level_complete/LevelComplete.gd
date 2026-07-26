@@ -12,22 +12,25 @@ func _ready() -> void:
 	_time_label.text = "%.1fs" % GameManager.last_time_taken
 	_score_label.text = "%d (+%d)" % [GameManager.score, GameManager.last_score_gained]
 	_cablecut_label.text = "%d" % GameManager.last_cables_cut
+	SoundManager.play_music("CutDown - WinMusic", false)
 	_next_button.pressed.connect(_on_next_pressed)
 	_retry_button.pressed.connect(_on_retry_pressed)
 	_menu_button.pressed.connect(_on_menu_pressed)
 
 
 func _on_next_pressed() -> void:
-	SoundManager.play_sfx("menu_click")
+	SoundManager.play_sfx("CutDown - Button sound1")
+	SoundManager.stop_music()
 	GameManager.advance_level()
 	get_tree().change_scene_to_file("res://scenes/game/Game.tscn")
 
 
 func _on_retry_pressed() -> void:
-	SoundManager.play_sfx("menu_click")
+	SoundManager.play_sfx("CutDown - Button sound1")
+	SoundManager.stop_music()
 	get_tree().change_scene_to_file("res://scenes/game/Game.tscn")
 
-
 func _on_menu_pressed() -> void:
-	SoundManager.play_sfx("menu_click")
+	SoundManager.play_sfx("CutDown - Button sound1")
+	SoundManager.stop_music()
 	get_tree().change_scene_to_file("res://scenes/main_menu/MainMenu.tscn")

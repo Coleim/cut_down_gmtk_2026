@@ -71,4 +71,10 @@ func _input(event: InputEvent) -> void:
 	if _cursor == null or _cursor.sprite_frames == null:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		_cursor.frame = 0 if event.pressed else 1  # 0=closed, 1=open
+		if event.pressed:
+			_cursor.frame = 0  # closed
+			var under_mouse := get_viewport().gui_get_hovered_control()
+			if not (under_mouse is BaseButton):
+				SoundManager.play_sfx("CutDown - Cut sound")
+		else:
+			_cursor.frame = 1  # open

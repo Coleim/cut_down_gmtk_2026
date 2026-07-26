@@ -30,4 +30,5 @@ func _gui_input(event: InputEvent) -> void:
 		_sprite.animation = "cut"
 		_sprite.stop()
 		_sprite.frame = color_index
+		SoundManager.play_sfx("CutDown - Electricity sound")
 		cut.emit(self)

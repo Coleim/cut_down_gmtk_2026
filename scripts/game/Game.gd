@@ -41,6 +41,7 @@ func _ready() -> void:
 	# Show each color to cut, 1 second each
 	for entry in _cable_order:
 		_show_color.frame = entry["color_index"]
+		SoundManager.play_oneshot(entry["name"].capitalize())
 		await get_tree().create_timer(1.0).timeout
 
 	# Preview done — enable cutting, show cut prompt, start timer
@@ -48,7 +49,7 @@ func _ready() -> void:
 	_cut_text.visible = true
 	_enable_cables()
 	_timer_running = true
-	SoundManager.play_music("click_bomb", true)
+	SoundManager.play_music("CutDown - Defuse Bomb music", true)
 
 
 func _process(delta: float) -> void:
@@ -146,7 +147,7 @@ func _explode() -> void:
 	_level_ended = true
 	_timer_running = false
 	SoundManager.stop_music()
-	SoundManager.play_sfx("explosion")
+	SoundManager.play_sfx("CutDown - Explosion")
 	var time_limit: float = GameManager.get_time_limit(GameManager.current_level)
 	var time_taken: float = time_limit - _time_left
 	GameManager.lose_level(time_taken, _cut_index)

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b4wrhr7idbl47"
+path="res://.godot/imported/CutDown - WinMusic.mp3-c593048137109d7eb9e153bdc2231f2d.mp3str"
+
+[deps]
+
+source_file="res://assets/music/CutDown - WinMusic.mp3"
+dest_files=["res://.godot/imported/CutDown - WinMusic.mp3-c593048137109d7eb9e153bdc2231f2d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
