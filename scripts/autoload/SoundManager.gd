@@ -1,6 +1,7 @@
 extends Node
 
 var _sfx_player: AudioStreamPlayer
+var _voice_player: AudioStreamPlayer
 var _music_player: AudioStreamPlayer
 
 
@@ -8,6 +9,10 @@ func _ready() -> void:
 	_sfx_player = AudioStreamPlayer.new()
 	_sfx_player.name = "SFXPlayer"
 	add_child(_sfx_player)
+
+	_voice_player = AudioStreamPlayer.new()
+	_voice_player.name = "VoicePlayer"
+	add_child(_voice_player)
 
 	_music_player = AudioStreamPlayer.new()
 	_music_player.name = "MusicPlayer"
@@ -47,8 +52,8 @@ func play_oneshot(sound_name: String) -> void:
 				stream = load(path)
 				break
 	if stream:
-		_sfx_player.stream = stream
-		_sfx_player.play()
+		_voice_player.stream = stream
+		_voice_player.play()
 	else:
 		print("[SoundManager] Oneshot not found: %s" % sound_name)
 
