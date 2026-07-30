@@ -30,7 +30,7 @@ color = Color(0.14, 0.11, 0.09, 1)
 position = Vector2(576, 324)
 texture = ExtResource("2_f1mbi")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=450342072]
+[node name="MainTitle" type="Sprite2D" parent="." unique_id=450342072]
 position = Vector2(561.99994, 253.99997)
 scale = Vector2(0.84117645, 0.84117645)
 texture = ExtResource("2_qmweu")

@@ -3,10 +3,13 @@ extends Node2D
 const CABLE_SCENE: PackedScene = preload("res://scenes/game/Cable.tscn")
 
 @onready var _cables_container: HBoxContainer = $UI/CablesContainer
-@onready var _countdown_timer: Timer = $CountdownTimer
-@onready var _level_sprite: AnimatedSprite2D = $LevelSprite
+@onready var _level_sprite: AnimatedSprite2D = $LevelPanel/LevelSprite
+@onready var _level_panel: Sprite2D = $LevelPanel
+
+@onready var _color_selector: Sprite2D = $ColorSelector
 @onready var _show_color: AnimatedSprite2D = $ColorSelector/ShowColor
 @onready var _cut_text: Sprite2D = $ColorSelector/CutText
+
 @onready var _sec_tens: AnimatedSprite2D = $UI/TimerContainerSeconds/Number1
 @onready var _sec_units: AnimatedSprite2D = $UI/TimerContainerSeconds/Number0
 @onready var _ms_tens: AnimatedSprite2D = $UI/TimerContainerMs/Number1
@@ -21,7 +24,9 @@ var _timer_running: bool = false
 
 
 func _ready() -> void:
-	_setup_level_sprite()
+	_color_selector.modulate.a = 0
+	
+	await _setup_level_sprite()
 
 	var level_data: Dictionary = GameManager.generate_level_colors(GameManager.current_level)
 	_cable_order = level_data["to_cut"]
@@ -31,14 +36,19 @@ func _ready() -> void:
 	_level_ended = false
 	_timer_running = false
 
+	
 	# Show initial time before anything starts
 	call_deferred("_update_timer_display")
+	
 
 	# Hide only cut text during color preview
 	_cut_text.visible = false
+	_show_color.visible = false
+	await _setup_color_selector()
 	_spawn_cables(false)
-
+	
 	# Show each color to cut, 1 second each
+	_show_color.visible = true
 	for entry in _cable_order:
 		_show_color.frame = entry["color_index"]
 		SoundManager.play_oneshot(entry["name"].capitalize())
@@ -86,10 +96,32 @@ func _update_timer_display() -> void:
 
 
 func _setup_level_sprite() -> void:
+	
+	# Move title offscreen above
+	var target_y = _level_panel.position.y
+	_level_panel.position.y = -200
+	# Slide title down
+	var tween = create_tween()
+	tween.tween_property(_level_panel, "position:y", target_y, 1.0)\
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	
+	await tween.finished
+	
 	_level_sprite.animation = "default"
 	_level_sprite.frame = clampi(GameManager.current_level - 1, 0, 8) if GameManager.current_level <= 9 else 9
 
-
+func _setup_color_selector() -> void:
+	# Move title offscreen above
+	var target_y = _color_selector.position.y
+	_color_selector.position.y = -200
+	_color_selector.modulate.a = 1
+	# Slide title down
+	var tween = create_tween()
+	tween.tween_property(_color_selector, "position:y", target_y, 1.0)\
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	
+	await tween.finished
+	
 func _spawn_cables(interactable: bool = true) -> void:
 	for child in _cables_container.get_children():
 		if child is Cable:
