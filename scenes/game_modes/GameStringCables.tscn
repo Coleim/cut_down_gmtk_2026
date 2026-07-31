@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://beei14wnfcrs0_scene"]
+
+[ext_resource type="PackedScene" uid="uid://b4dqsxq3fd23j_scene" path="res://scenes/game_modes/GameBase.tscn" id="1"]
+[ext_resource type="Script" uid="uid://beei14wnfcrs0" path="res://scripts/game_modes/GameStringCables.gd" id="2"]
+
+[node name="GameStringCables" instance=ExtResource("1")]
+script = ExtResource("2")

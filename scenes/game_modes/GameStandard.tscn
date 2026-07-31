@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c6c48h6qefnd6_scene"]
+
+[ext_resource type="PackedScene" uid="uid://b4dqsxq3fd23j_scene" path="res://scenes/game_modes/GameBase.tscn" id="1"]
+[ext_resource type="Script" uid="uid://c6c48h6qefnd6" path="res://scripts/game_modes/GameStandard.gd" id="2"]
+
+[node name="GameStandard" instance=ExtResource("1")]
+script = ExtResource("2")

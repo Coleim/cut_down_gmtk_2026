@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cxfoumvpn30w1_scene"]
+
+[ext_resource type="Script" uid="uid://cxfoumvpn30w1" path="res://scripts/mode_select/ModeSelect.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dw427rckeglpe" path="res://assets/sprites/Backgrounds.png" id="2"]
+[ext_resource type="FontFile" uid="uid://cr3q8nhf2vxn0" path="res://assets/fonts/Palatino.ttc" id="3"]
+
+[node name="ModeSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.14, 0.11, 0.09, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+position = Vector2(576, 324)
+texture = ExtResource("2")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 30.0
+offset_right = 960.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 36
+theme_override_fonts/font = ExtResource("3")
+text = "CHALLENGE — SELECT A MODE"
+horizontal_alignment = 1
+
+[node name="ModesContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 130.0
+offset_right = 864.0
+offset_bottom = 530.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 188.0
+offset_top = 578.0
+offset_right = 388.0
+offset_bottom = 628.0
+text = "< BACK"
+theme_override_font_sizes/font_size = 22
+theme_override_fonts/font = ExtResource("3")

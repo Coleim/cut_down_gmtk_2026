@@ -1,10 +1,10 @@
 extends Node
 
-const GAME_SCENE := "res://scenes/game/Game.tscn"
-const SPRITE_SCALE_MENU := Vector2(0.32, 0.32)   # ~32px cursor on a 100px sprite
+const SPRITE_SCALE_MENU := Vector2(0.32, 0.32)
 const SPRITE_SCALE_GAME := Vector2(1.0, 1.0)
 
 var _cursor: AnimatedSprite2D
+var _in_game: bool = false
 
 
 func _ready() -> void:
@@ -12,14 +12,13 @@ func _ready() -> void:
 
 	_cursor = AnimatedSprite2D.new()
 	_cursor.z_index = 100
+	_cursor.visible = true
 	_cursor.scale = SPRITE_SCALE_MENU
 	get_tree().root.add_child.call_deferred(_cursor)
-
 	get_tree().root.child_entered_tree.connect(_on_scene_changed)
 
 
 func _setup_frames() -> void:
-	# Only build frames once; sprite_frames is already set if we already ran
 	if _cursor.sprite_frames != null:
 		return
 
@@ -29,11 +28,11 @@ func _setup_frames() -> void:
 
 	var frame0 := AtlasTexture.new()
 	frame0.atlas = texture
-	frame0.region = Rect2(0, 0, 99, 99)   # frame 1 = closed
+	frame0.region = Rect2(0, 0, 99, 99)
 
 	var frame1 := AtlasTexture.new()
 	frame1.atlas = texture
-	frame1.region = Rect2(0, 101, 100, 100) # frame 2 = open
+	frame1.region = Rect2(0, 101, 100, 100)
 
 	frames.add_animation("default")
 	frames.set_animation_loop("default", false)
@@ -42,21 +41,25 @@ func _setup_frames() -> void:
 
 	_cursor.sprite_frames = frames
 	_cursor.animation = "default"
-	_cursor.frame = 1  # start open
+	_cursor.frame = 1  # open
 
 
-func _on_scene_changed(node: Node) -> void:
-	# Wait a frame so the scene tree is fully ready
+func _on_scene_changed(_node: Node) -> void:
 	await get_tree().process_frame
-	_apply_scene_scale()
+	_apply_scene_settings()
 
 
-func _apply_scene_scale() -> void:
-	var scene_path: String = get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
-	if scene_path == GAME_SCENE:
+func _apply_scene_settings() -> void:
+	var scene_path: String = get_tree().current_scene.scene_file_path \
+		if get_tree().current_scene else ""
+	_in_game = "game_modes" in scene_path
+	if _in_game:
 		_cursor.scale = SPRITE_SCALE_GAME
 	else:
 		_cursor.scale = SPRITE_SCALE_MENU
+	# Custom sprite always visible, system cursor always hidden
+	_cursor.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 
 func _process(_delta: float) -> void:
@@ -64,7 +67,17 @@ func _process(_delta: float) -> void:
 		return
 	if _cursor.sprite_frames == null:
 		_setup_frames()
-	_cursor.global_position = get_viewport().get_mouse_position()
+
+	var mouse_pos := get_viewport().get_mouse_position()
+	var in_window := get_viewport().get_visible_rect().has_point(mouse_pos)
+
+	if in_window:
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+		_cursor.visible = true
+		_cursor.global_position = mouse_pos
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		_cursor.visible = false
 
 
 func _input(event: InputEvent) -> void:

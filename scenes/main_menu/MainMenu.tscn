@@ -3,10 +3,42 @@
 [ext_resource type="Script" uid="uid://bb7t7kxxcgc7a" path="res://scripts/main_menu/MainMenu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dw427rckeglpe" path="res://assets/sprites/Backgrounds.png" id="2_f1mbi"]
 [ext_resource type="Texture2D" uid="uid://uolhcuixnycv" path="res://assets/sprites/HomePageLogo.png" id="2_qmweu"]
-[ext_resource type="Texture2D" uid="uid://bfyk6p6fbrril" path="res://assets/sprites/Start.png" id="3_f1mbi"]
 [ext_resource type="Texture2D" uid="uid://b8iv4alaxk8gh" path="res://assets/sprites/Wheel.png" id="3_wckin"]
 [ext_resource type="Texture2D" uid="uid://bekdewgblulkk" path="res://assets/sprites/Quit.png" id="4_oitky"]
 [ext_resource type="FontFile" uid="uid://cr3q8nhf2vxn0" path="res://assets/fonts/Palatino.ttc" id="5_credits"]
+[ext_resource type="Texture2D" uid="uid://5rhnw1rlvi8g" path="res://assets/sprites/HomePageSmoke.png" id="5_qq55g"]
+[ext_resource type="Texture2D" uid="uid://dcst18s2yui43" path="res://assets/sprites/Story.png" id="5_wckin"]
+[ext_resource type="Texture2D" uid="uid://cl4ux407gwvjw" path="res://assets/sprites/Endless.png" id="6_arvcj"]
+[ext_resource type="Texture2D" uid="uid://d26n4bfhwdkvi" path="res://assets/sprites/Challenge.png" id="7_6k0m2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkvjm"]
+atlas = ExtResource("5_qq55g")
+region = Rect2(0, 0, 1024, 680)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gdku"]
+atlas = ExtResource("5_qq55g")
+region = Rect2(0, 680, 1024, 680)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdscb"]
+atlas = ExtResource("5_qq55g")
+region = Rect2(0, 1360, 1024, 680)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vdwqs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkvjm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gdku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdscb")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="MainMenu" type="Control" unique_id=1499669274]
 layout_mode = 3
@@ -40,32 +72,62 @@ position = Vector2(88, 487)
 texture = ExtResource("3_wckin")
 
 [node name="MainTitle" type="Sprite2D" parent="." unique_id=450342072]
-position = Vector2(561.99994, 253.99997)
+position = Vector2(562, 229.99998)
 scale = Vector2(0.84117645, 0.84117645)
 texture = ExtResource("2_qmweu")
 
-[node name="StartButton" type="TextureButton" parent="." unique_id=1033264887]
+[node name="SmokeAnimation" type="AnimatedSprite2D" parent="MainTitle" unique_id=1724719083]
+sprite_frames = SubResource("SpriteFrames_vdwqs")
+
+[node name="StoryButton" type="TextureButton" parent="." unique_id=1033264887]
 layout_mode = 0
-offset_left = 595.0
-offset_top = 531.0
-offset_right = 795.0
-offset_bottom = 631.0
-texture_normal = ExtResource("3_f1mbi")
+offset_left = 326.0
+offset_top = 479.0
+offset_right = 526.0
+offset_bottom = 579.0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("5_wckin")
+
+[node name="EndlessButton" type="TextureButton" parent="." unique_id=1363388204]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -168.0
+offset_right = 121.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("6_arvcj")
+
+[node name="ChallengeButton" type="TextureButton" parent="." unique_id=1777792401]
+layout_mode = 0
+offset_left = 676.0
+offset_top = 479.0
+offset_right = 876.0
+offset_bottom = 579.0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("7_6k0m2")
 
 [node name="QuitButton" type="TextureButton" parent="." unique_id=1404274333]
 layout_mode = 0
-offset_left = 345.0
-offset_top = 530.0
-offset_right = 545.0
-offset_bottom = 630.0
+offset_left = 498.99997
+offset_top = 562.0
+offset_right = 699.0
+offset_bottom = 662.0
+scale = Vector2(0.8, 0.8)
 texture_normal = ExtResource("4_oitky")
 
 [node name="Credits" type="RichTextLabel" parent="." unique_id=490683516]
 layout_mode = 0
-offset_left = 149.0
-offset_top = 21.0
-offset_right = 404.0
-offset_bottom = 86.0
+offset_left = 134.0
+offset_top = 15.0
+offset_right = 389.0
+offset_bottom = 80.0
 theme_override_colors/default_color = Color(0.85, 0.78, 0.65, 1)
 theme_override_fonts/normal_font = ExtResource("5_credits")
 theme_override_font_sizes/normal_font_size = 24
