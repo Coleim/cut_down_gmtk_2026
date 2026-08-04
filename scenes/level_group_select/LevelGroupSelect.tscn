@@ -4,6 +4,27 @@
 [ext_resource type="Texture2D" uid="uid://dw427rckeglpe" path="res://assets/sprites/Backgrounds.png" id="2"]
 [ext_resource type="FontFile" uid="uid://cr3q8nhf2vxn0" path="res://assets/fonts/Palatino.ttc" id="3"]
 [ext_resource type="Texture2D" uid="uid://b8iv4alaxk8gh" path="res://assets/sprites/Wheel.png" id="3_dfj0i"]
+[ext_resource type="Texture2D" uid="uid://bwaud43m57e3u" path="res://assets/sprites/LevelSelector.png" id="5_t0o4p"]
+[ext_resource type="Texture2D" uid="uid://ogpcyc8woyce" path="res://assets/sprites/1-5.png" id="6_r1j3j"]
+[ext_resource type="Texture2D" uid="uid://cpq0spx7hp31t" path="res://assets/sprites/1-5-selected.png" id="7_cx5tn"]
+[ext_resource type="Texture2D" uid="uid://c0k0ovdrfeym6" path="res://assets/sprites/6-10.png" id="8_6_10n"]
+[ext_resource type="Texture2D" uid="uid://dt3b6igcdm2y4" path="res://assets/sprites/6-10-selected.png" id="9_6_10s"]
+[ext_resource type="Texture2D" uid="uid://2ci8orhhqh31" path="res://assets/sprites/11-15.png" id="10_11_15n"]
+[ext_resource type="Texture2D" uid="uid://dn84grxatt2o5" path="res://assets/sprites/11-15-selected.png" id="11_11_15s"]
+[ext_resource type="Texture2D" uid="uid://70l7benee1si" path="res://assets/sprites/16-20.png" id="12_16_20n"]
+[ext_resource type="Texture2D" uid="uid://4dxgvj6gys14" path="res://assets/sprites/16-20-selected.png" id="13_16_20s"]
+[ext_resource type="Texture2D" uid="uid://dbede1g3tciks" path="res://assets/sprites/21-25.png" id="14_21_25n"]
+[ext_resource type="Texture2D" uid="uid://bkf38o3nli31" path="res://assets/sprites/21-25-selected.png" id="15_21_25s"]
+[ext_resource type="Texture2D" uid="uid://l0ce5dpovl2" path="res://assets/sprites/26-30.png" id="16_26_30n"]
+[ext_resource type="Texture2D" uid="uid://sodc1whcljcl" path="res://assets/sprites/26-30-selected.png" id="17_26_30s"]
+[ext_resource type="Texture2D" uid="uid://5ajx086bxuxg" path="res://assets/sprites/31-35.png" id="18_31_35n"]
+[ext_resource type="Texture2D" uid="uid://cndl8wi053o0w" path="res://assets/sprites/31-35-selected.png" id="19_31_35s"]
+[ext_resource type="Texture2D" uid="uid://b06ijxb7ls6t3" path="res://assets/sprites/36-40.png" id="20_36_40n"]
+[ext_resource type="Texture2D" uid="uid://cqnwyfo88oy5u" path="res://assets/sprites/36-40-selected.png" id="21_36_40s"]
+[ext_resource type="Texture2D" uid="uid://duq0us6dsrwc3" path="res://assets/sprites/41-45.png" id="22_41_45n"]
+[ext_resource type="Texture2D" uid="uid://cr7rd7i4wtts5" path="res://assets/sprites/41-45-selected.png" id="23_41_45s"]
+[ext_resource type="Texture2D" uid="uid://befxm6syqp6st" path="res://assets/sprites/46-50.png" id="24_46_50n"]
+[ext_resource type="Texture2D" uid="uid://dc85pkmj6g0xl" path="res://assets/sprites/46-50-selected.png" id="25_46_50s"]
 
 [node name="LevelGroupSelect" type="Control" unique_id=482928624]
 layout_mode = 3
@@ -36,24 +57,6 @@ texture = ExtResource("3_dfj0i")
 position = Vector2(88, 487)
 texture = ExtResource("3_dfj0i")
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1874401901]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 1152.0
-offset_bottom = 60.0
-theme_override_fonts/font = ExtResource("3")
-theme_override_font_sizes/font_size = 32
-text = "SELECT A GROUP"
-horizontal_alignment = 1
-
-[node name="CardsRoot" type="Control" parent="." unique_id=1795633751]
-anchors_preset = 0
-offset_top = 72.0
-offset_right = 1152.0
-offset_bottom = 596.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="BackButton" type="Button" parent="." unique_id=1151189482]
 layout_mode = 0
 offset_left = 32.0
@@ -63,3 +66,57 @@ offset_bottom = 648.0
 theme_override_fonts/font = ExtResource("3")
 theme_override_font_sizes/font_size = 22
 text = "< BACK"
+
+[node name="LevelSelector" type="Sprite2D" parent="." unique_id=342015788]
+texture = ExtResource("5_t0o4p")
+centered = false
+
+[node name="1-5" type="TextureButton" parent="." unique_id=1154173786]
+layout_mode = 0
+texture_normal = ExtResource("6_r1j3j")
+texture_hover = ExtResource("7_cx5tn")
+
+[node name="6-10" type="TextureButton" parent="." unique_id=100000001]
+layout_mode = 0
+texture_normal = ExtResource("8_6_10n")
+texture_hover = ExtResource("9_6_10s")
+
+[node name="11-15" type="TextureButton" parent="." unique_id=100000002]
+layout_mode = 0
+texture_normal = ExtResource("10_11_15n")
+texture_hover = ExtResource("11_11_15s")
+
+[node name="16-20" type="TextureButton" parent="." unique_id=100000003]
+layout_mode = 0
+texture_normal = ExtResource("12_16_20n")
+texture_hover = ExtResource("13_16_20s")
+
+[node name="21-25" type="TextureButton" parent="." unique_id=100000004]
+layout_mode = 0
+texture_normal = ExtResource("14_21_25n")
+texture_hover = ExtResource("15_21_25s")
+
+[node name="26-30" type="TextureButton" parent="." unique_id=100000005]
+layout_mode = 0
+texture_normal = ExtResource("16_26_30n")
+texture_hover = ExtResource("17_26_30s")
+
+[node name="31-35" type="TextureButton" parent="." unique_id=100000006]
+layout_mode = 0
+texture_normal = ExtResource("18_31_35n")
+texture_hover = ExtResource("19_31_35s")
+
+[node name="36-40" type="TextureButton" parent="." unique_id=100000007]
+layout_mode = 0
+texture_normal = ExtResource("20_36_40n")
+texture_hover = ExtResource("21_36_40s")
+
+[node name="41-45" type="TextureButton" parent="." unique_id=100000008]
+layout_mode = 0
+texture_normal = ExtResource("22_41_45n")
+texture_hover = ExtResource("23_41_45s")
+
+[node name="46-50" type="TextureButton" parent="." unique_id=100000009]
+layout_mode = 0
+texture_normal = ExtResource("24_46_50n")
+texture_hover = ExtResource("25_46_50s")

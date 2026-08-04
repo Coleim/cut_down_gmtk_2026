@@ -38,12 +38,12 @@ const COLOR_NAMES: Array[String] = [
 # 50 story levels: [displayed_count, cut_count, time_limit]
 const STORY_LEVELS: Array = [
 	# --- Group 1: STANDARD (levels 1-5) ---
-	[1, 1, 12.0],
-	[2, 2, 12.0],
-	[3, 3, 12.0],
-	[4, 3, 11.0],
-	[4, 4, 10.0],
-	# --- Group 2: TIMER GONE (levels 6-10) ---
+	[1, 1, 10.0],
+	[2, 2, 10.0],
+	[3, 3, 10.0],
+	[4, 3, 10.0],
+	[5, 4, 10.0],
+	# --- Group 2: STRONG (levels 6-10) ---
 	[2, 2, 12.0],
 	[3, 2, 12.0],
 	[3, 3, 11.0],
@@ -55,7 +55,7 @@ const STORY_LEVELS: Array = [
 	[3, 3, 11.0],
 	[4, 3, 10.0],
 	[5, 4,  9.0],
-	# --- Group 4: STRING CABLES (levels 16-20) ---
+	# --- Group 4: (levels 16-20) ---
 	[2, 2, 14.0],
 	[3, 2, 13.0],
 	[3, 3, 12.0],

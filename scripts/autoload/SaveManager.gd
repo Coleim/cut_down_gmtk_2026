@@ -22,6 +22,13 @@ func is_group_unlocked(group: int) -> bool:
 	return group == 1 or unlocked_groups.has(group)
 
 
+## A group is completed when the next one has been unlocked.
+## Works for group 10 too: completing it calls unlock_group(11),
+## so is_group_unlocked(11) returns true.
+func is_group_completed(group: int) -> bool:
+	return is_group_unlocked(group + 1)
+
+
 func unlock_group(group: int) -> void:
 	if not unlocked_groups.has(group):
 		unlocked_groups.append(group)

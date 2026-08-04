@@ -53,4 +53,8 @@ func _on_retry_pressed() -> void:
 func _on_menu_pressed() -> void:
 	SoundManager.play_sfx("CutDown - Button sound1")
 	SoundManager.stop_music()
-	get_tree().change_scene_to_file("res://scenes/main_menu/MainMenu.tscn")
+	match GameManager.current_path:
+		GameManager.PathType.STORY:
+			get_tree().change_scene_to_file("res://scenes/level_group_select/LevelGroupSelect.tscn")
+		_:
+			get_tree().change_scene_to_file("res://scenes/main_menu/MainMenu.tscn")

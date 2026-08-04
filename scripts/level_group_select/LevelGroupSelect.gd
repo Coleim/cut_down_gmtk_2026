@@ -3,97 +3,60 @@ extends Control
 ## Story path: shows all 10 groups as sprite cards arranged in a grid.
 ## Locked groups are dimmed. Clicking an unlocked group starts it.
 
-const GROUPS_PER_ROW := 5
-const CARD_SPACING := Vector2(20, 20)
+const CHECKMARK_PATH := "res://assets/sprites/Checkmark.png"
 
-# Card size matches LevelPanel sprite (300x200) scaled down to fit nicely
-const CARD_SCALE := 0.55
-
-@onready var _back_button: Button  = $BackButton
-@onready var _cards_root: Control  = $CardsRoot
-@onready var _title_label: Label   = $TitleLabel
+@onready var _back_button:   Button        = $BackButton
+@onready var _group_1_5:     TextureButton = $"1-5"
+@onready var _group_6_10:    TextureButton = $"6-10"
+@onready var _group_11_15:   TextureButton = $"11-15"
+@onready var _group_16_20:   TextureButton = $"16-20"
+@onready var _group_21_25:   TextureButton = $"21-25"
+@onready var _group_26_30:   TextureButton = $"26-30"
+@onready var _group_31_35:   TextureButton = $"31-35"
+@onready var _group_36_40:   TextureButton = $"36-40"
+@onready var _group_41_45:   TextureButton = $"41-45"
+@onready var _group_46_50:   TextureButton = $"46-50"
 
 
 func _ready() -> void:
 	SoundManager.play_music("CutDown - Menu music", true)
 	_back_button.pressed.connect(_on_back_pressed)
-	# Defer so CardsRoot has its final layout size
-	call_deferred("_build_cards")
+
+	var groups: Array[TextureButton] = [
+		_group_1_5, _group_6_10, _group_11_15, _group_16_20, _group_21_25,
+		_group_26_30, _group_31_35, _group_36_40, _group_41_45, _group_46_50,
+	]
+
+	for i in groups.size():
+		var group_number := i + 1
+		var button: TextureButton = groups[i]
+
+		if SaveManager.is_group_unlocked(group_number):
+			_apply_click_mask(button)
+			button.pressed.connect(_on_group_selected.bind(group_number))
+			if SaveManager.is_group_completed(group_number):
+				_add_checkmark(button)
+		else:
+			button.modulate = Color(0.4, 0.4, 0.4, 1.0)
+			button.disabled = true
+			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-func _build_cards() -> void:
-	for child in _cards_root.get_children():
-		child.queue_free()
-
-	var card_w := 300.0 * CARD_SCALE
-	var card_h := 200.0 * CARD_SCALE
-
-	# Centre the grid horizontally
-	var total_w := GROUPS_PER_ROW * card_w + (GROUPS_PER_ROW - 1) * CARD_SPACING.x
-	var start_x := (_cards_root.size.x - total_w) / 2.0
-	var start_y := 10.0
-
-	for g in range(1, GameManager.TOTAL_GROUPS + 1):
-		var col := (g - 1) % GROUPS_PER_ROW
-		var row := (g - 1) / GROUPS_PER_ROW
-
-		var pos := Vector2(
-			start_x + col * (card_w + CARD_SPACING.x),
-			start_y + row * (card_h + CARD_SPACING.y)
-		)
-
-		_spawn_card(g, pos, card_w, card_h)
+func _apply_click_mask(button: TextureButton) -> void:
+	var image := button.texture_normal.get_image()
+	var mask := BitMap.new()
+	mask.create_from_image_alpha(image)
+	button.texture_click_mask = mask
 
 
-func _spawn_card(group: int, pos: Vector2, w: float, h: float) -> void:
-	var unlocked := SaveManager.is_group_unlocked(group)
-	var mode := GameManager.get_mode_for_group(group)
-	var mode_name := GameManager.get_mode_name(mode)
-
-	# Container acts as the clickable hit area
-	var card := TextureButton.new()
-	card.position = pos
-	card.custom_minimum_size = Vector2(w, h)
-	card.ignore_texture_size = true
-	card.stretch_mode = TextureButton.STRETCH_SCALE
-
-	# Panel background sprite
-	var panel_tex := load("res://assets/sprites/LevelPanel.png") as Texture2D
-	card.texture_normal = panel_tex
-	if not unlocked:
-		card.modulate = Color(0.35, 0.35, 0.35, 1.0)
-	card.disabled = not unlocked
-
-	_cards_root.add_child(card)
-
-	# Group number label (placeholder until a dedicated sprite exists)
-	var num_label := Label.new()
-	num_label.text = "G%d" % group
-	num_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	num_label.position = Vector2(w * 0.5 - 20, 10)
-	num_label.add_theme_font_size_override("font_size", 20)
-	card.add_child(num_label)
-
-	# Mode name label
-	var mode_label := Label.new()
-	mode_label.text = mode_name
-	mode_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	mode_label.position = Vector2(w * 0.5 - 50, h * 0.5 - 10)
-	mode_label.custom_minimum_size = Vector2(100, 20)
-	mode_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	mode_label.add_theme_font_size_override("font_size", 13)
-	card.add_child(mode_label)
-
-	# Lock icon label
-	if not unlocked:
-		var lock_label := Label.new()
-		lock_label.text = "LOCKED"
-		lock_label.position = Vector2(w * 0.5 - 28, h - 30)
-		lock_label.add_theme_font_size_override("font_size", 14)
-		card.add_child(lock_label)
-
-	var captured_group := group
-	card.pressed.connect(func(): _on_group_selected(captured_group))
+func _add_checkmark(button: TextureButton) -> void:
+	if not ResourceLoader.exists(CHECKMARK_PATH):
+		return
+	var checkmark := TextureRect.new()
+	checkmark.texture = load(CHECKMARK_PATH)
+	checkmark.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	checkmark.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(checkmark)
 
 
 func _on_group_selected(group: int) -> void:

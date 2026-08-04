@@ -16,7 +16,11 @@ func _ready() -> void:
 	match GameManager.current_path:
 		GameManager.PathType.STORY:
 			_score_label.text = ""  # no score in story
-			_next_button.visible = not GameManager.is_group_complete()
+			_next_button.visible = true
+			if GameManager.is_group_complete():
+				_next_button.texture_normal = load("res://assets/sprites/LevelSelect.png")
+			else:
+				_menu_button.texture_normal = load("res://assets/sprites/LevelSelect.png")
 		GameManager.PathType.ENDLESS, GameManager.PathType.CHALLENGE:
 			_score_label.text = "%d (+%d)" % [GameManager.session_score, GameManager.last_score_gained]
 			_next_button.visible = true  # "Continue" in endless/challenge
@@ -33,13 +37,11 @@ func _on_next_pressed() -> void:
 	match GameManager.current_path:
 		GameManager.PathType.STORY:
 			if GameManager.is_group_complete():
-				# Shouldn't reach here (button hidden), but safe fallback
 				get_tree().change_scene_to_file("res://scenes/level_group_select/LevelGroupSelect.tscn")
 			else:
 				var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
 				get_tree().change_scene_to_file(scene)
 		GameManager.PathType.ENDLESS:
-			# Mode was already advanced in GameManager.advance_level()
 			var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
 			get_tree().change_scene_to_file(scene)
 		GameManager.PathType.CHALLENGE:
@@ -65,4 +67,11 @@ func _on_retry_pressed() -> void:
 func _on_menu_pressed() -> void:
 	SoundManager.play_sfx("CutDown - Button sound1")
 	SoundManager.stop_music()
-	get_tree().change_scene_to_file("res://scenes/main_menu/MainMenu.tscn")
+	match GameManager.current_path:
+		GameManager.PathType.STORY:
+			if GameManager.is_group_complete():
+				get_tree().change_scene_to_file("res://scenes/main_menu/MainMenu.tscn")
+			else:
+				get_tree().change_scene_to_file("res://scenes/level_group_select/LevelGroupSelect.tscn")
+		_:
+			get_tree().change_scene_to_file("res://scenes/main_menu/MainMenu.tscn")
