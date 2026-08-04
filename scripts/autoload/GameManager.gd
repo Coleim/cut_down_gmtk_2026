@@ -16,7 +16,7 @@ enum GameMode {
 	STANDARD,
 	TIMER_GONE,
 	REVERSE,
-	STRING_CABLES,
+	STRONG_CABLES,
 }
 
 # ---------------------------------------------------------------------------
@@ -135,9 +135,9 @@ var score: int:
 func get_mode_for_group(group: int) -> GameMode:
 	match group:
 		1: return GameMode.STANDARD
-		2: return GameMode.TIMER_GONE
-		3: return GameMode.REVERSE
-		4: return GameMode.STRING_CABLES
+		2: return GameMode.STRONG_CABLES
+		3: return GameMode.TIMER_GONE
+		4: return GameMode.REVERSE
 		_: return GameMode.STANDARD
 
 
@@ -145,8 +145,8 @@ func get_mode_name(mode: GameMode) -> String:
 	match mode:
 		GameMode.STANDARD:      return "STANDARD"
 		GameMode.TIMER_GONE:    return "TIMER GONE"
-		GameMode.REVERSE:       return "REVERSE"
-		GameMode.STRING_CABLES: return "STRING CABLES"
+		GameMode.REVERSE:       return "REVERSED"
+		GameMode.STRONG_CABLES: return "STRONG CABLES"
 	return "STANDARD"
 
 
@@ -155,7 +155,7 @@ func get_scene_for_mode(mode: GameMode) -> String:
 		GameMode.STANDARD:      return "res://scenes/game_modes/GameStandard.tscn"
 		GameMode.TIMER_GONE:    return "res://scenes/game_modes/GameTimerGone.tscn"
 		GameMode.REVERSE:       return "res://scenes/game_modes/GameReverse.tscn"
-		GameMode.STRING_CABLES: return "res://scenes/game_modes/GameStringCables.tscn"
+		GameMode.STRONG_CABLES: return "res://scenes/game_modes/GameStrongCables.tscn"
 	return "res://scenes/game_modes/GameStandard.tscn"
 
 

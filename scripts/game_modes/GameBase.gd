@@ -129,7 +129,7 @@ func _setup_panel() -> void:
 			_mode_label.visible     = false
 			_level_sprite.stop()
 			_level_sprite.animation = "default"
-			_level_sprite.frame     = clampi(GameManager.current_level_in_group - 1, 0, 8)
+			_level_sprite.frame     = clampi(GameManager.current_level_in_group - 1, 0, 4)
 		_:  # ENDLESS / CHALLENGE
 			_level_sprite.visible = false
 			_mode_label.visible   = true

@@ -292,7 +292,8 @@ scale = Vector2(0.537037, 0.5370371)
 texture = ExtResource("11_60iot")
 
 [node name="ColorSelector" type="Sprite2D" parent="." unique_id=1020373860]
-position = Vector2(590, 84)
+position = Vector2(852, 118.00001)
+scale = Vector2(1.385, 1.385)
 texture = ExtResource("2_365ku")
 
 [node name="CutText" type="Sprite2D" parent="ColorSelector" unique_id=1484895900]
