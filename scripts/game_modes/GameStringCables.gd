@@ -1,6 +1,6 @@
 extends GameBase
 
-## String Cables mode — each cable must be clicked TWICE to cut.
+## Strong Cables mode — each cable must be clicked TWICE to cut.
 ## First click "strains" the cable (visual feedback); second click cuts it.
 
 # Tracks which cables have been clicked once already

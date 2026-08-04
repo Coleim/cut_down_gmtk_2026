@@ -49,7 +49,7 @@ func _ready() -> void:
 	_timer_running = false
 	_update_timer_display()
 
-	await _setup_panel()
+	_setup_panel()
 
 	var level_data: Dictionary = GameManager.generate_level_colors()
 	_cable_order      = level_data["to_cut"]
