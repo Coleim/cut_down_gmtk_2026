@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b1tj6jogyeg80" path="res://scripts/level_group_select/LevelGroupSelect.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dw427rckeglpe" path="res://assets/sprites/Backgrounds.png" id="2"]
-[ext_resource type="FontFile" uid="uid://cr3q8nhf2vxn0" path="res://assets/fonts/Palatino.ttc" id="3"]
 [ext_resource type="Texture2D" uid="uid://b8iv4alaxk8gh" path="res://assets/sprites/Wheel.png" id="3_dfj0i"]
+[ext_resource type="FontFile" uid="uid://cr3q8nhf2vxn0" path="res://assets/fonts/Palatino.ttc" id="3_font"]
 [ext_resource type="Texture2D" uid="uid://bwaud43m57e3u" path="res://assets/sprites/LevelSelector.png" id="5_t0o4p"]
 [ext_resource type="Texture2D" uid="uid://ogpcyc8woyce" path="res://assets/sprites/1-5.png" id="6_r1j3j"]
 [ext_resource type="Texture2D" uid="uid://cpq0spx7hp31t" path="res://assets/sprites/1-5-selected.png" id="7_cx5tn"]
@@ -25,6 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://cr7rd7i4wtts5" path="res://assets/sprites/41-45-selected.png" id="23_41_45s"]
 [ext_resource type="Texture2D" uid="uid://befxm6syqp6st" path="res://assets/sprites/46-50.png" id="24_46_50n"]
 [ext_resource type="Texture2D" uid="uid://dc85pkmj6g0xl" path="res://assets/sprites/46-50-selected.png" id="25_46_50s"]
+[ext_resource type="Texture2D" uid="uid://cjvf0iciql377" path="res://assets/sprites/MainMenu.png" id="26_mainmenu"]
+[ext_resource type="Texture2D" uid="uid://lvlcmplted01" path="res://assets/sprites/LevelCompleted.png" id="27_wy5e8"]
 
 [node name="LevelGroupSelect" type="Control" unique_id=482928624]
 layout_mode = 3
@@ -56,16 +58,6 @@ texture = ExtResource("3_dfj0i")
 [node name="Wheel2" type="Sprite2D" parent="Background" unique_id=836480885]
 position = Vector2(88, 487)
 texture = ExtResource("3_dfj0i")
-
-[node name="BackButton" type="Button" parent="." unique_id=1151189482]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 606.0
-offset_right = 220.0
-offset_bottom = 648.0
-theme_override_fonts/font = ExtResource("3")
-theme_override_font_sizes/font_size = 22
-text = "< BACK"
 
 [node name="LevelSelector" type="Sprite2D" parent="." unique_id=342015788]
 texture = ExtResource("5_t0o4p")
@@ -118,5 +110,100 @@ texture_hover = ExtResource("23_41_45s")
 
 [node name="46-50" type="TextureButton" parent="." unique_id=100000009]
 layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("24_46_50n")
 texture_hover = ExtResource("25_46_50s")
+
+[node name="ProgressLabel" type="Label" parent="." unique_id=200000001]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 530.0
+offset_right = 462.0
+offset_bottom = 556.0
+theme_override_colors/font_color = Color(0.9, 0.85, 0.75, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 22
+text = "0/50"
+horizontal_alignment = 1
+
+[node name="ProgressSubLabel" type="Label" parent="." unique_id=200000002]
+layout_mode = 0
+offset_left = 393.0
+offset_top = 555.0
+offset_right = 485.0
+offset_bottom = 566.0
+theme_override_colors/font_color = Color(0.9, 0.85, 0.75, 1)
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 9
+text = "LEVELS COMPLETED"
+horizontal_alignment = 1
+
+[node name="BackButton" type="TextureButton" parent="." unique_id=1151189482]
+layout_mode = 0
+offset_left = 137.99998
+offset_top = 508.00003
+offset_right = 338.0
+offset_bottom = 608.0
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("26_mainmenu")
+
+[node name="LevelComplete1" type="Sprite2D" parent="." unique_id=1355476158]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(439.00003, 240)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete2" type="Sprite2D" parent="." unique_id=723995937]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(577, 240)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete3" type="Sprite2D" parent="." unique_id=1045314098]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(715.99994, 240)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete4" type="Sprite2D" parent="." unique_id=1149861005]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(439.00003, 348)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete5" type="Sprite2D" parent="." unique_id=697609337]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(577, 348)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete6" type="Sprite2D" parent="." unique_id=559714087]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(715.9999, 348)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete7" type="Sprite2D" parent="." unique_id=1311239996]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(439.00003, 464)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete8" type="Sprite2D" parent="." unique_id=729066403]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(577, 464)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete9" type="Sprite2D" parent="." unique_id=904334262]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(715.9999, 464)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")
+
+[node name="LevelComplete10" type="Sprite2D" parent="." unique_id=2105695115]
+modulate = Color(1.5, 1.5, 1.5, 1)
+position = Vector2(577, 546)
+scale = Vector2(1.6363636, 1.6363636)
+texture = ExtResource("27_wy5e8")

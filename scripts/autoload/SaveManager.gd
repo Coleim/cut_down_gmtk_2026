@@ -5,6 +5,10 @@ extends Node
 
 const SAVE_PATH := "user://save.json"
 
+## Set to 1-10 to mark groups 1..N as complete in debug builds (0 = disabled).
+## Has no effect in release exports.
+const DEBUG_COMPLETE_UP_TO := 1
+
 # Groups unlocked by the player (group numbers, 1-based)
 # Group 1 is always unlocked by default.
 var unlocked_groups: Array[int] = [1]
@@ -16,6 +20,10 @@ var challenge_best: Dictionary = {}  # { "STANDARD": 0, "REVERSE": 0, ... }
 
 func _ready() -> void:
 	load_data()
+	if OS.is_debug_build() and DEBUG_COMPLETE_UP_TO > 0:
+		for g in range(1, DEBUG_COMPLETE_UP_TO + 2):  # +2: unlock N+1 so group N counts as completed
+			if not unlocked_groups.has(g):
+				unlocked_groups.append(g)
 
 
 func is_group_unlocked(group: int) -> bool:
