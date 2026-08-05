@@ -7,7 +7,7 @@ const SAVE_PATH := "user://save.json"
 
 ## Set to 1-10 to mark groups 1..N as complete in debug builds (0 = disabled).
 ## Has no effect in release exports.
-const DEBUG_COMPLETE_UP_TO := 1
+const DEBUG_COMPLETE_UP_TO := 0
 
 # Groups unlocked by the player (group numbers, 1-based)
 # Group 1 is always unlocked by default.

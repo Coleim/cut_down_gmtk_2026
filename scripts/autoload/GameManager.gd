@@ -110,6 +110,7 @@ var current_path: PathType = PathType.STORY
 var current_mode: GameMode = GameMode.STANDARD
 var current_group: int = 1
 var current_level_in_group: int = 1
+var endless_level: int = 1
 var session_score: int = 0
 var last_time_taken: float = 0.0
 var last_score_gained: int = 0
@@ -273,6 +274,7 @@ func advance_level() -> void:
 		PathType.STORY:
 			current_level_in_group += 1
 		PathType.ENDLESS:
+			endless_level += 1
 			current_mode = pick_random_unlocked_mode()
 		PathType.CHALLENGE:
 			pass
@@ -307,6 +309,7 @@ func lose_level(time_taken: float, cables_cut: int) -> void:
 func reset_game() -> void:
 	session_score = 0
 	current_level_in_group = 1
+	endless_level = 1
 
 # ---------------------------------------------------------------------------
 # Path start helpers
@@ -324,6 +327,7 @@ func start_endless() -> void:
 	current_path = PathType.ENDLESS
 	current_mode = pick_random_unlocked_mode()
 	session_score = 0
+	endless_level = 1
 
 
 func start_challenge(mode: GameMode) -> void:
