@@ -13,7 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://bs6ysir2hwwxb" path="res://assets/sprites/TimerContainer.png" id="9_aptqa"]
 [ext_resource type="Texture2D" uid="uid://74gkle7jxvur" path="res://assets/sprites/Numbers.png" id="10_gynul"]
 [ext_resource type="Texture2D" uid="uid://d2ly7qgpmnyw0" path="res://assets/sprites/Dotslights.png" id="11_60iot"]
-[ext_resource type="FontFile" uid="uid://cr3q8nhf2vxn0" path="res://assets/fonts/Palatino.ttc" id="12_font"]
+[ext_resource type="Texture2D" uid="uid://1y7y3rngq3nj" path="res://assets/sprites/Mode_Panel.png" id="12_5rxmd"]
+[ext_resource type="Texture2D" uid="uid://n1bpv7o8v5sv" path="res://assets/sprites/Mode_Text.png" id="13_e3e5m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6k07o"]
 atlas = ExtResource("10_gynul")
@@ -130,6 +131,28 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gynul")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhe67"]
+atlas = ExtResource("13_e3e5m")
+region = Rect2(0, 0, 169, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2asn1"]
+atlas = ExtResource("13_e3e5m")
+region = Rect2(0, 119, 169, 119)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bti2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhe67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2asn1")
 }],
 "loop": 1,
 "name": &"default",
@@ -303,6 +326,14 @@ texture = ExtResource("3_wnrko")
 [node name="ShowColor" type="AnimatedSprite2D" parent="ColorSelector" unique_id=859084109]
 sprite_frames = SubResource("SpriteFrames_qiobv")
 
+[node name="ModePanel" type="Sprite2D" parent="." unique_id=1744435502]
+position = Vector2(157, 247)
+rotation = -0.06283185
+texture = ExtResource("12_5rxmd")
+
+[node name="ModeText" type="AnimatedSprite2D" parent="ModePanel" unique_id=1839505944]
+sprite_frames = SubResource("SpriteFrames_6bti2")
+
 [node name="LevelPanel" type="Sprite2D" parent="." unique_id=1563955765]
 position = Vector2(143, 105.00001)
 rotation = -0.12217305
@@ -313,15 +344,3 @@ texture = ExtResource("2_vrspl")
 position = Vector2(1.6342773, 5.6257095)
 scale = Vector2(0.7692308, 0.7692308)
 sprite_frames = SubResource("SpriteFrames_vdwqs")
-
-[node name="ModeLabel" type="Label" parent="LevelPanel" unique_id=1478023702]
-visible = false
-offset_left = -80.0
-offset_top = -20.0
-offset_right = 80.0
-offset_bottom = 20.0
-theme_override_fonts/font = ExtResource("12_font")
-theme_override_font_sizes/font_size = 18
-text = "MODE"
-horizontal_alignment = 1
-vertical_alignment = 1

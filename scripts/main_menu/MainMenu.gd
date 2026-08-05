@@ -31,7 +31,7 @@ func _ready() -> void:
 	_main_title.position.y = -200
 	var tween := create_tween()
 	tween.tween_property(_main_title, "position:y", target_y, 1.0) \
-		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 
 	tween.tween_callback(func():
 		# Start smoke loop once the panel has landed
@@ -40,7 +40,6 @@ func _ready() -> void:
 		_story_button.visible     = true
 		_smoke.visible            = true
 		_endless_button.visible   = true
-		_challenge_button.visible = true
 		_quit_button.visible      = true
 		_credits.visible          = true
 		_refresh_lock_states()
@@ -48,17 +47,14 @@ func _ready() -> void:
 
 	_story_button.pressed.connect(_on_story_pressed)
 	_endless_button.pressed.connect(_on_endless_pressed)
-	_challenge_button.pressed.connect(_on_challenge_pressed)
 	_quit_button.pressed.connect(_on_quit_pressed)
 
 
 func _refresh_lock_states() -> void:
 	var extra_unlocked := SaveManager.are_extra_paths_unlocked()
-	_endless_button.disabled   = not extra_unlocked
-	_challenge_button.disabled = not extra_unlocked
+	_endless_button.disabled = not extra_unlocked
 	var locked_color := Color(1, 1, 1, 0.35)
-	_endless_button.modulate   = Color.WHITE if extra_unlocked else locked_color
-	_challenge_button.modulate = Color.WHITE if extra_unlocked else locked_color
+	_endless_button.modulate = Color.WHITE if extra_unlocked else locked_color
 
 
 func _on_story_pressed() -> void:
