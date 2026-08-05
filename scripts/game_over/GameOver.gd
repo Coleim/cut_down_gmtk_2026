@@ -17,6 +17,7 @@ func _ready() -> void:
 		GameManager.PathType.STORY:
 			_score_label.text = ""
 			_best_label.text  = ""
+			_menu_button.texture_normal = load("res://assets/sprites/LevelSelect.png")
 		GameManager.PathType.ENDLESS:
 			_score_label.text = "Score: %d" % GameManager.session_score
 			_best_label.text  = "Best: %d" % SaveManager.endless_best

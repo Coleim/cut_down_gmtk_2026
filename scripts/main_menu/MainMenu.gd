@@ -31,7 +31,7 @@ func _ready() -> void:
 	_main_title.position.y = -200
 	var tween := create_tween()
 	tween.tween_property(_main_title, "position:y", target_y, 1.0) \
-		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 
 	tween.tween_callback(func():
 		# Start smoke loop once the panel has landed

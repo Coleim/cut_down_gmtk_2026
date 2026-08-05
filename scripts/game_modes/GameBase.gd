@@ -13,7 +13,8 @@ const CABLE_SCENE: PackedScene = preload("res://scenes/game/Cable.tscn")
 @onready var _cables_container: HBoxContainer = $UI/CablesContainer
 @onready var _level_panel: Sprite2D            = $LevelPanel
 @onready var _level_sprite: AnimatedSprite2D   = $LevelPanel/LevelSprite
-@onready var _mode_label: Label                = $LevelPanel/ModeLabel   # placeholder until sprite asset exists
+@onready var _mode_panel: Sprite2D             = $ModePanel
+@onready var _mode_text: AnimatedSprite2D      = $ModePanel/ModeText
 
 @onready var _color_selector: Sprite2D         = $ColorSelector
 @onready var _show_color: AnimatedSprite2D     = $ColorSelector/ShowColor
@@ -34,12 +35,15 @@ var _cut_index: int = 0
 var _time_left: float = 0.0
 var _level_ended: bool = false
 var _timer_running: bool = false
+var _mode_panel_end_pos: Vector2
 
 # ---------------------------------------------------------------------------
 # Lifecycle
 # ---------------------------------------------------------------------------
 
 func _ready() -> void:
+	_mode_panel_end_pos    = _mode_panel.position
+	_mode_panel.visible    = false
 	_color_selector.modulate.a = 0
 
 	# Set time before panel animates so the display is correct from frame 1
@@ -122,28 +126,43 @@ func _setup_timer_display() -> void:
 # ---------------------------------------------------------------------------
 
 func _setup_panel() -> void:
-	# Configure the correct content before the panel slides in
+	# --- Content ---
 	match GameManager.current_path:
 		GameManager.PathType.STORY:
-			_level_sprite.visible   = true
-			_mode_label.visible     = false
+			_level_sprite.visible = true
 			_level_sprite.stop()
 			_level_sprite.animation = "default"
-			_level_sprite.frame     = clampi(GameManager.current_level_in_group - 1, 0, 4)
+			_level_sprite.frame = clampi(GameManager.current_level_in_group - 1, 0, 4)
 		_:  # ENDLESS / CHALLENGE
 			_level_sprite.visible = false
-			_mode_label.visible   = true
-			_mode_label.text      = GameManager.get_mode_name(GameManager.current_mode)
 
-	# Slide down from off-screen
-	var target_y := _level_panel.position.y
+	var show_mode_panel := false
+	match GameManager.current_mode:
+		GameManager.GameMode.REVERSE:
+			show_mode_panel = true
+			_mode_text.frame = 0
+		GameManager.GameMode.STRONG_CABLES:
+			show_mode_panel = true
+			_mode_text.frame = 1
+
+	# --- 1. LevelPanel slides down ---
+	var level_target_y := _level_panel.position.y
 	_level_panel.position.y = -200
 	var tween := create_tween()
-	tween.tween_property(_level_panel, "position:y", target_y, 1.0)\
-		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(_level_panel, "position:y", level_target_y, 1.0) \
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	await tween.finished
 
 	_setup_timer_display()
+
+	# --- 2. ModePanel slides down after LevelPanel lands ---
+	if show_mode_panel:
+		_mode_panel.position = Vector2(157.0, 131.0)
+		_mode_panel.visible  = true
+		var mode_tween := create_tween()
+		mode_tween.tween_property(_mode_panel, "position", _mode_panel_end_pos, 1.0) \
+				  .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+		await mode_tween.finished
 
 
 func _setup_color_selector() -> void:
@@ -151,8 +170,8 @@ func _setup_color_selector() -> void:
 	_color_selector.position.y = -200
 	_color_selector.modulate.a = 1
 	var tween := create_tween()
-	tween.tween_property(_color_selector, "position:y", target_y, 1.0)\
-		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(_color_selector, "position:y", target_y, 1.0) \
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	await tween.finished
 
 
