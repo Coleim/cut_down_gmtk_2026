@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://itl5ubc3v4l4" path="res://assets/sprites/NextLevel.png" id="3_5fysh"]
 [ext_resource type="Texture2D" uid="uid://dw427rckeglpe" path="res://assets/sprites/Backgrounds.png" id="3_iker6"]
 [ext_resource type="Texture2D" uid="uid://x7b14ue7jve" path="res://assets/sprites/WinScreen.png" id="4_iker6"]
-[ext_resource type="Texture2D" uid="uid://dkyxny3c6ynh4" path="res://assets/sprites/Retry.png" id="5_3v1pp"]
 [ext_resource type="Texture2D" uid="uid://cjvf0iciql377" path="res://assets/sprites/MainMenu.png" id="6_6l6t8"]
 
 [node name="LevelComplete" type="Control" unique_id=121629334]
@@ -40,27 +39,18 @@ texture = ExtResource("4_iker6")
 [node name="NextButton" type="TextureButton" parent="." unique_id=1034269780]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
-offset_left = 734.0
+offset_left = 678.0
 offset_top = 499.0
-offset_right = 939.0
+offset_right = 883.0
 offset_bottom = 599.0
 texture_normal = ExtResource("3_5fysh")
-
-[node name="RetryButton" type="TextureButton" parent="." unique_id=279060897]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 0
-offset_left = 501.0
-offset_top = 498.0
-offset_right = 733.0
-offset_bottom = 598.0
-texture_normal = ExtResource("5_3v1pp")
 
 [node name="MenuButton" type="TextureButton" parent="." unique_id=412036947]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
-offset_left = 278.0
+offset_left = 344.0
 offset_top = 498.0
-offset_right = 483.0
+offset_right = 549.0
 offset_bottom = 598.0
 texture_normal = ExtResource("6_6l6t8")
 

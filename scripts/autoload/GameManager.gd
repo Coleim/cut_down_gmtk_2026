@@ -44,59 +44,59 @@ const STORY_LEVELS: Array = [
 	[4, 3, 10.0],
 	[5, 4, 10.0],
 	# --- Group 2: STRONG (levels 6-10) ---
-	[2, 2, 12.0],
-	[3, 2, 12.0],
-	[3, 3, 11.0],
+	[2, 2, 10.0],
+	[3, 2, 10.0],
+	[3, 3, 10.0],
 	[4, 3, 10.0],
-	[4, 4,  9.0],
-	# --- Group 3: REVERSE (levels 11-15) ---
-	[2, 2, 12.0],
-	[3, 2, 12.0],
-	[3, 3, 11.0],
-	[4, 3, 10.0],
-	[5, 4,  9.0],
-	# --- Group 4: (levels 16-20) ---
-	[2, 2, 14.0],
-	[3, 2, 13.0],
-	[3, 3, 12.0],
-	[4, 3, 11.0],
 	[4, 4, 10.0],
-	# --- Group 5 (levels 21-25) ---
+	# --- Group 3: NO TIMER (levels 11-15) ---
+	[2, 2, 10.0],
+	[3, 2, 10.0],
+	[3, 3, 10.0],
+	[4, 3, 10.0],
+	[5, 4, 10.0],
+	# --- Group 4: ARMOURED (levels 16-20) ---
+	[2, 2, 10.0],
+	[3, 2, 10.0],
+	[3, 3, 9.0],
+	[4, 3, 9.0],
+	[4, 4, 8.0],
+	# --- Group 5: SMOKE (levels 21-25) ---
 	[3, 3, 10.0],
 	[4, 3, 10.0],
 	[4, 4,  9.0],
-	[5, 4,  8.0],
+	[5, 4,  9.0],
 	[5, 5,  8.0],
-	# --- Group 6 (levels 26-30) ---
-	[3, 3,  9.0],
-	[4, 3,  9.0],
-	[4, 4,  8.0],
-	[5, 4,  7.0],
+	# --- Group 6: Sparkling (levels 26-30) ---
+	[3, 3,  10.0],
+	[4, 3,  10.0],
+	[4, 4,  9.0],
+	[5, 4,  9.0],
+	[5, 5,  8.0],
+	# --- Group 7: Moving (levels 31-35) ---
+	[3, 3,  10.0],
+	[4, 4,  10.0],
+	[5, 4,  9.0],
+	[5, 5,  8.0],
+	[5, 5,  8.0],
+	# --- Group 8: Light Flickers (levels 36-40) ---
+	[4, 4,  10.0],
+	[5, 4,  10.0],
+	[5, 5,  9.0],
+	[5, 5,  8.5],
+	[5, 5,  8.0],
+	# --- Group 9: Left/Right (levels 41-45) ---
+	[4, 4,  10.0],
+	[5, 5,  10.0],
+	[5, 5,  9.0],
+	[5, 5,  8.0],
 	[5, 5,  7.0],
-	# --- Group 7 (levels 31-35) ---
-	[3, 3,  8.0],
-	[4, 4,  8.0],
-	[5, 4,  7.0],
-	[5, 5,  6.0],
-	[5, 5,  6.0],
-	# --- Group 8 (levels 36-40) ---
-	[4, 4,  7.0],
-	[5, 4,  7.0],
-	[5, 5,  6.0],
-	[5, 5,  5.5],
-	[5, 5,  5.0],
-	# --- Group 9 (levels 41-45) ---
-	[4, 4,  6.0],
-	[5, 5,  6.0],
-	[5, 5,  5.0],
-	[5, 5,  4.5],
-	[5, 5,  4.0],
-	# --- Group 10 (levels 46-50) ---
-	[5, 4,  5.0],
-	[5, 5,  5.0],
-	[5, 5,  4.5],
-	[5, 5,  4.0],
-	[5, 5,  3.5],
+	# --- Group 10: Reversed (levels 46-50) ---
+	[5, 4,  10.0],
+	[5, 5,  9.0],
+	[5, 5,  8.0],
+	[5, 5,  7.0],
+	[5, 5,  7.0],
 ]
 
 const TOTAL_GROUPS: int = 10
@@ -110,10 +110,12 @@ var current_path: PathType = PathType.STORY
 var current_mode: GameMode = GameMode.STANDARD
 var current_group: int = 1
 var current_level_in_group: int = 1
+var endless_level: int = 1
 var session_score: int = 0
 var last_time_taken: float = 0.0
 var last_score_gained: int = 0
 var last_cables_cut: int = 0
+var _endless_config: Array = [3, 3, 10.0]
 
 # Legacy shim so old code referencing current_level still works
 var current_level: int:
@@ -192,10 +194,20 @@ func _get_story_config() -> Array:
 	return STORY_LEVELS[idx]
 
 
+func _compute_endless_config() -> void:
+	var displayed: int
+	var cut: int
+	match endless_level:
+		1: displayed = 3; cut = 3
+		2: displayed = 4; cut = 3
+		3: displayed = 5; cut = 4
+		_: displayed = 5; cut = randi_range(4, 5)
+	var time := maxf(5.0, 10.0 - floor((endless_level - 1) / 10.0))
+	_endless_config = [displayed, cut, time]
+
+
 func _get_endless_config() -> Array:
-	var tier: int = int(session_score / 500.0)
-	tier = clampi(tier, 0, 8)
-	return STORY_LEVELS[tier * LEVELS_PER_GROUP]
+	return _endless_config
 
 
 func get_displayed_count(level: int = -1) -> int:
@@ -273,7 +285,9 @@ func advance_level() -> void:
 		PathType.STORY:
 			current_level_in_group += 1
 		PathType.ENDLESS:
+			endless_level += 1
 			current_mode = pick_random_unlocked_mode()
+			_compute_endless_config()
 		PathType.CHALLENGE:
 			pass
 
@@ -307,6 +321,7 @@ func lose_level(time_taken: float, cables_cut: int) -> void:
 func reset_game() -> void:
 	session_score = 0
 	current_level_in_group = 1
+	endless_level = 1
 
 # ---------------------------------------------------------------------------
 # Path start helpers
@@ -324,6 +339,8 @@ func start_endless() -> void:
 	current_path = PathType.ENDLESS
 	current_mode = pick_random_unlocked_mode()
 	session_score = 0
+	endless_level = 1
+	_compute_endless_config()
 
 
 func start_challenge(mode: GameMode) -> void:

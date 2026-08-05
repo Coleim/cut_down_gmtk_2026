@@ -49,7 +49,7 @@ func _ready() -> void:
 			button.disabled = true
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	if OS.is_debug_build():
+	if OS.is_debug_build() and SaveManager.DEBUG_COMPLETE_UP_TO > 0:
 		_debug_complete_up_to = SaveManager.DEBUG_COMPLETE_UP_TO
 		_debug_refresh_badges()
 

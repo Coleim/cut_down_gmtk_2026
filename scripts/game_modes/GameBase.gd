@@ -12,7 +12,10 @@ const CABLE_SCENE: PackedScene = preload("res://scenes/game/Cable.tscn")
 
 @onready var _cables_container: HBoxContainer = $UI/CablesContainer
 @onready var _level_panel: Sprite2D            = $LevelPanel
-@onready var _level_sprite: AnimatedSprite2D   = $LevelPanel/LevelSprite
+@onready var _level_numbers:  AnimatedSprite2D = $LevelPanel/LevelNumbers
+@onready var _level_numbers2: AnimatedSprite2D = $LevelPanel/LevelNumbers2
+@onready var _level_text_sprite: Sprite2D      = $LevelPanel/LevelText
+@onready var _die_text: Sprite2D               = $LevelPanel/DieText
 @onready var _mode_panel: Sprite2D             = $ModePanel
 @onready var _mode_text: AnimatedSprite2D      = $ModePanel/ModeText
 
@@ -53,7 +56,7 @@ func _ready() -> void:
 	_timer_running = false
 	_update_timer_display()
 
-	_setup_panel()
+	await _setup_panel()
 
 	var level_data: Dictionary = GameManager.generate_level_colors()
 	_cable_order      = level_data["to_cut"]
@@ -129,12 +132,30 @@ func _setup_panel() -> void:
 	# --- Content ---
 	match GameManager.current_path:
 		GameManager.PathType.STORY:
-			_level_sprite.visible = true
-			_level_sprite.stop()
-			_level_sprite.animation = "default"
-			_level_sprite.frame = clampi(GameManager.current_level_in_group - 1, 0, 4)
-		_:  # ENDLESS / CHALLENGE
-			_level_sprite.visible = false
+			_level_text_sprite.visible = true
+			_level_numbers.visible     = true
+			_level_numbers2.visible    = true
+			_die_text.visible          = false
+			_level_numbers.stop()
+			_level_numbers2.stop()
+			_level_numbers.frame  = GameManager.current_level % 10
+			_level_numbers2.frame = GameManager.current_level / 10
+		_:  # ENDLESS
+			var lvl := GameManager.endless_level
+			if lvl >= 100:
+				_level_numbers.visible     = false
+				_level_numbers2.visible    = false
+				_level_text_sprite.visible = false
+				_die_text.visible          = true
+			else:
+				_die_text.visible          = false
+				_level_text_sprite.visible = true
+				_level_numbers.visible     = true
+				_level_numbers2.visible    = true
+				_level_numbers.stop()
+				_level_numbers2.stop()
+				_level_numbers.frame  = lvl % 10
+				_level_numbers2.frame = lvl / 10
 
 	var show_mode_panel := false
 	match GameManager.current_mode:
