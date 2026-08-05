@@ -1,10 +1,9 @@
 extends Control
 
-@onready var _time_label: Label        = $TimeLabel
-@onready var _score_label: Label       = $ScoreLabel
-@onready var _cablecut_label: Label    = $CableCutLabel
+@onready var _time_label: Label           = $TimeLabel
+@onready var _score_label: Label          = $ScoreLabel
+@onready var _cablecut_label: Label       = $CableCutLabel
 @onready var _next_button: TextureButton  = $NextButton
-@onready var _retry_button: TextureButton = $RetryButton
 @onready var _menu_button: TextureButton  = $MenuButton
 
 
@@ -26,7 +25,6 @@ func _ready() -> void:
 			_next_button.visible = true  # "Continue" in endless/challenge
 
 	_next_button.pressed.connect(_on_next_pressed)
-	_retry_button.pressed.connect(_on_retry_pressed)
 	_menu_button.pressed.connect(_on_menu_pressed)
 
 
@@ -45,21 +43,6 @@ func _on_next_pressed() -> void:
 			var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
 			get_tree().change_scene_to_file(scene)
 		GameManager.PathType.CHALLENGE:
-			var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
-			get_tree().change_scene_to_file(scene)
-
-
-func _on_retry_pressed() -> void:
-	SoundManager.play_sfx("CutDown - Button sound1")
-	SoundManager.stop_music()
-	match GameManager.current_path:
-		GameManager.PathType.STORY:
-			# Replay the current level (level_in_group unchanged)
-			var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
-			get_tree().change_scene_to_file(scene)
-		_:
-			# Endless/Challenge retry restarts the whole run
-			GameManager.reset_game()
 			var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
 			get_tree().change_scene_to_file(scene)
 
