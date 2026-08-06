@@ -47,13 +47,14 @@ offset_right = 531.0
 offset_bottom = 624.0
 texture_normal = ExtResource("4_j7ijp")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1315662492]
+[node name="Panel" type="Node2D" parent="." unique_id=662742855]
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel" unique_id=1315662492]
 position = Vector2(578, 326.00003)
 scale = Vector2(1.14375, 1.1383333)
 texture = ExtResource("5_j7ijp")
 
-[node name="ScoreLabel" type="Label" parent="." unique_id=984052080]
-layout_mode = 0
+[node name="ScoreLabel" type="Label" parent="Panel" unique_id=984052080]
 offset_left = 674.0
 offset_top = 343.0
 offset_right = 765.0
@@ -62,8 +63,7 @@ theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 
-[node name="TimeLabel" type="Label" parent="." unique_id=1900152695]
-layout_mode = 0
+[node name="TimeLabel" type="Label" parent="Panel" unique_id=1900152695]
 offset_left = 673.0
 offset_top = 251.0
 offset_right = 764.0
@@ -72,8 +72,7 @@ theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 
-[node name="CableCutLabel" type="Label" parent="." unique_id=1137476949]
-layout_mode = 0
+[node name="CableCutLabel" type="Label" parent="Panel" unique_id=1137476949]
 offset_left = 672.0
 offset_top = 300.0
 offset_right = 763.0
@@ -82,12 +81,10 @@ theme_override_font_sizes/font_size = 24
 text = "0"
 horizontal_alignment = 2
 
-[node name="BestLabel" type="Label" parent="." unique_id=1137476950]
-layout_mode = 0
+[node name="BestLabel" type="Label" parent="Panel" unique_id=1137476950]
 offset_left = 580.0
 offset_top = 390.0
 offset_right = 780.0
 offset_bottom = 424.0
 theme_override_font_sizes/font_size = 22
-text = ""
 horizontal_alignment = 2

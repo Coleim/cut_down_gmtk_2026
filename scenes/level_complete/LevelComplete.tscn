@@ -31,17 +31,46 @@ color = Color(0.02, 0.2, 0.05, 1)
 position = Vector2(576, 324)
 texture = ExtResource("3_iker6")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1468436828]
+[node name="Panel" type="Node2D" parent="." unique_id=2030168588]
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel" unique_id=1468436828]
 position = Vector2(590.00006, 312)
 scale = Vector2(1.1316667, 1.1316667)
 texture = ExtResource("4_iker6")
 
+[node name="TimeLabel" type="Label" parent="Panel" unique_id=365093774]
+offset_left = 738.0
+offset_top = 239.0
+offset_right = 784.0
+offset_bottom = 287.0
+theme_override_font_sizes/font_size = 24
+text = "0.0s"
+horizontal_alignment = 2
+
+[node name="ScoreLabel" type="Label" parent="Panel" unique_id=238468169]
+offset_left = 680.0
+offset_top = 326.0
+offset_right = 787.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 24
+text = "%d (+%d)"
+horizontal_alignment = 2
+
+[node name="CableCutLabel" type="Label" parent="Panel" unique_id=502000727]
+offset_left = 693.0
+offset_top = 284.0
+offset_right = 784.0
+offset_bottom = 318.0
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 2
+
 [node name="NextButton" type="TextureButton" parent="." unique_id=1034269780]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
-offset_left = 678.0
+offset_left = 669.0
 offset_top = 499.0
-offset_right = 883.0
+offset_right = 874.0
 offset_bottom = 599.0
 texture_normal = ExtResource("3_5fysh")
 
@@ -53,33 +82,3 @@ offset_top = 498.0
 offset_right = 549.0
 offset_bottom = 598.0
 texture_normal = ExtResource("6_6l6t8")
-
-[node name="TimeLabel" type="Label" parent="." unique_id=365093774]
-layout_mode = 0
-offset_left = 738.0
-offset_top = 239.0
-offset_right = 784.0
-offset_bottom = 287.0
-theme_override_font_sizes/font_size = 24
-text = "0.0s"
-horizontal_alignment = 2
-
-[node name="ScoreLabel" type="Label" parent="." unique_id=238468169]
-layout_mode = 0
-offset_left = 680.0
-offset_top = 326.0
-offset_right = 786.0
-offset_bottom = 353.0
-theme_override_font_sizes/font_size = 24
-text = "%d (+%d)"
-horizontal_alignment = 2
-
-[node name="CableCutLabel" type="Label" parent="." unique_id=502000727]
-layout_mode = 0
-offset_left = 693.0
-offset_top = 284.0
-offset_right = 784.0
-offset_bottom = 318.0
-theme_override_font_sizes/font_size = 24
-text = "0"
-horizontal_alignment = 2

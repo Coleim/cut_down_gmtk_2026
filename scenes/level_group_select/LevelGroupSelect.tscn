@@ -59,64 +59,82 @@ texture = ExtResource("3_dfj0i")
 position = Vector2(88, 487)
 texture = ExtResource("3_dfj0i")
 
-[node name="LevelSelector" type="Sprite2D" parent="." unique_id=342015788]
+[node name="BackButton" type="TextureButton" parent="." unique_id=1151189482]
+layout_mode = 0
+offset_left = 137.99998
+offset_top = 517.00006
+offset_right = 338.0
+offset_bottom = 617.00006
+scale = Vector2(0.8, 0.8)
+texture_normal = ExtResource("26_mainmenu")
+
+[node name="Panel" type="Node2D" parent="." unique_id=564620114]
+
+[node name="LevelSelector" type="Sprite2D" parent="Panel" unique_id=342015788]
 texture = ExtResource("5_t0o4p")
 centered = false
 
-[node name="1-5" type="TextureButton" parent="." unique_id=1154173786]
-layout_mode = 0
+[node name="1-5" type="TextureButton" parent="Panel" unique_id=1154173786]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("6_r1j3j")
 texture_hover = ExtResource("7_cx5tn")
 
-[node name="6-10" type="TextureButton" parent="." unique_id=100000001]
-layout_mode = 0
+[node name="6-10" type="TextureButton" parent="Panel" unique_id=100000001]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("8_6_10n")
 texture_hover = ExtResource("9_6_10s")
 
-[node name="11-15" type="TextureButton" parent="." unique_id=100000002]
-layout_mode = 0
+[node name="11-15" type="TextureButton" parent="Panel" unique_id=100000002]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("10_11_15n")
 texture_hover = ExtResource("11_11_15s")
 
-[node name="16-20" type="TextureButton" parent="." unique_id=100000003]
-layout_mode = 0
+[node name="16-20" type="TextureButton" parent="Panel" unique_id=100000003]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("12_16_20n")
 texture_hover = ExtResource("13_16_20s")
 
-[node name="21-25" type="TextureButton" parent="." unique_id=100000004]
-layout_mode = 0
+[node name="21-25" type="TextureButton" parent="Panel" unique_id=100000004]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("14_21_25n")
 texture_hover = ExtResource("15_21_25s")
 
-[node name="26-30" type="TextureButton" parent="." unique_id=100000005]
-layout_mode = 0
+[node name="26-30" type="TextureButton" parent="Panel" unique_id=100000005]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("16_26_30n")
 texture_hover = ExtResource("17_26_30s")
 
-[node name="31-35" type="TextureButton" parent="." unique_id=100000006]
-layout_mode = 0
+[node name="31-35" type="TextureButton" parent="Panel" unique_id=100000006]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("18_31_35n")
 texture_hover = ExtResource("19_31_35s")
 
-[node name="36-40" type="TextureButton" parent="." unique_id=100000007]
-layout_mode = 0
+[node name="36-40" type="TextureButton" parent="Panel" unique_id=100000007]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("20_36_40n")
 texture_hover = ExtResource("21_36_40s")
 
-[node name="41-45" type="TextureButton" parent="." unique_id=100000008]
-layout_mode = 0
+[node name="41-45" type="TextureButton" parent="Panel" unique_id=100000008]
+offset_right = 1152.0
+offset_bottom = 648.0
 texture_normal = ExtResource("22_41_45n")
 texture_hover = ExtResource("23_41_45s")
 
-[node name="46-50" type="TextureButton" parent="." unique_id=100000009]
-layout_mode = 0
+[node name="46-50" type="TextureButton" parent="Panel" unique_id=100000009]
 offset_right = 1152.0
 offset_bottom = 648.0
 texture_normal = ExtResource("24_46_50n")
 texture_hover = ExtResource("25_46_50s")
 
-[node name="ProgressLabel" type="Label" parent="." unique_id=200000001]
-layout_mode = 0
+[node name="ProgressLabel" type="Label" parent="Panel" unique_id=200000001]
 offset_left = 416.0
 offset_top = 530.0
 offset_right = 462.0
@@ -127,8 +145,7 @@ theme_override_font_sizes/font_size = 22
 text = "0/50"
 horizontal_alignment = 1
 
-[node name="ProgressSubLabel" type="Label" parent="." unique_id=200000002]
-layout_mode = 0
+[node name="ProgressSubLabel" type="Label" parent="Panel" unique_id=200000002]
 offset_left = 393.0
 offset_top = 555.0
 offset_right = 485.0
@@ -139,70 +156,61 @@ theme_override_font_sizes/font_size = 9
 text = "LEVELS COMPLETED"
 horizontal_alignment = 1
 
-[node name="BackButton" type="TextureButton" parent="." unique_id=1151189482]
-layout_mode = 0
-offset_left = 137.99998
-offset_top = 517.00006
-offset_right = 338.0
-offset_bottom = 617.00006
-scale = Vector2(0.8, 0.8)
-texture_normal = ExtResource("26_mainmenu")
-
-[node name="LevelComplete1" type="Sprite2D" parent="." unique_id=1355476158]
+[node name="LevelComplete1" type="Sprite2D" parent="Panel" unique_id=1355476158]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(439.00003, 240)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete2" type="Sprite2D" parent="." unique_id=723995937]
+[node name="LevelComplete2" type="Sprite2D" parent="Panel" unique_id=723995937]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(577, 240)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete3" type="Sprite2D" parent="." unique_id=1045314098]
+[node name="LevelComplete3" type="Sprite2D" parent="Panel" unique_id=1045314098]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(715.99994, 240)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete4" type="Sprite2D" parent="." unique_id=1149861005]
+[node name="LevelComplete4" type="Sprite2D" parent="Panel" unique_id=1149861005]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(439.00003, 348)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete5" type="Sprite2D" parent="." unique_id=697609337]
+[node name="LevelComplete5" type="Sprite2D" parent="Panel" unique_id=697609337]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(577, 348)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete6" type="Sprite2D" parent="." unique_id=559714087]
+[node name="LevelComplete6" type="Sprite2D" parent="Panel" unique_id=559714087]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(715.9999, 348)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete7" type="Sprite2D" parent="." unique_id=1311239996]
+[node name="LevelComplete7" type="Sprite2D" parent="Panel" unique_id=1311239996]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(439.00003, 464)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete8" type="Sprite2D" parent="." unique_id=729066403]
+[node name="LevelComplete8" type="Sprite2D" parent="Panel" unique_id=729066403]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(577, 464)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete9" type="Sprite2D" parent="." unique_id=904334262]
+[node name="LevelComplete9" type="Sprite2D" parent="Panel" unique_id=904334262]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(715.9999, 464)
 scale = Vector2(1.6363636, 1.6363636)
 texture = ExtResource("27_wy5e8")
 
-[node name="LevelComplete10" type="Sprite2D" parent="." unique_id=2105695115]
+[node name="LevelComplete10" type="Sprite2D" parent="Panel" unique_id=2105695115]
 modulate = Color(1.5, 1.5, 1.5, 1)
 position = Vector2(577, 546)
 scale = Vector2(1.6363636, 1.6363636)
