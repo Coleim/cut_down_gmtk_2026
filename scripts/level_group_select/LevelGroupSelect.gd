@@ -6,28 +6,27 @@ extends Control
 ## must exist as a direct child of this scene — it will be shown when complete.
 
 @onready var _back_button:    TextureButton = $BackButton
-@onready var _progress_label: Label         = $ProgressLabel
-@onready var _progress_sub:   Label         = $ProgressSubLabel
-@onready var _group_1_5:      TextureButton = $"1-5"
-@onready var _group_6_10:    TextureButton = $"6-10"
-@onready var _group_11_15:   TextureButton = $"11-15"
-@onready var _group_16_20:   TextureButton = $"16-20"
-@onready var _group_21_25:   TextureButton = $"21-25"
-@onready var _group_26_30:   TextureButton = $"26-30"
-@onready var _group_31_35:   TextureButton = $"31-35"
-@onready var _group_36_40:   TextureButton = $"36-40"
-@onready var _group_41_45:   TextureButton = $"41-45"
-@onready var _group_46_50:   TextureButton = $"46-50"
+@onready var _panel: Node2D = $Panel
+@onready var _progress_label: Label         = $Panel/ProgressLabel
+@onready var _group_1_5:      TextureButton = $Panel/"1-5"
+@onready var _group_6_10:    TextureButton = $Panel/"6-10"
+@onready var _group_11_15:   TextureButton = $Panel/"11-15"
+@onready var _group_16_20:   TextureButton = $Panel/"16-20"
+@onready var _group_21_25:   TextureButton = $Panel/"21-25"
+@onready var _group_26_30:   TextureButton = $Panel/"26-30"
+@onready var _group_31_35:   TextureButton = $Panel/"31-35"
+@onready var _group_36_40:   TextureButton = $Panel/"36-40"
+@onready var _group_41_45:   TextureButton = $Panel/"41-45"
+@onready var _group_46_50:   TextureButton = $Panel/"46-50"
 
-var _debug_complete_up_to: int = 0
 var _groups: Array[TextureButton]
 
 
-func _ready() -> void:
+func _ready() -> void:	
 	SoundManager.play_music("CutDown - Menu music", true)
-	_back_button.pressed.connect(_on_back_pressed)
+	_back_button.visible = false
 	_update_progress()
-
+	
 	_groups = [
 		_group_1_5, _group_6_10, _group_11_15, _group_16_20, _group_21_25,
 		_group_26_30, _group_31_35, _group_36_40, _group_41_45, _group_46_50,
@@ -37,7 +36,7 @@ func _ready() -> void:
 		var group_number := i + 1
 		var button: TextureButton = _groups[i]
 
-		var complete_node := get_node_or_null("LevelComplete%d" % group_number)
+		var complete_node := get_node_or_null("Panel/LevelComplete%d" % group_number)
 		if complete_node:
 			complete_node.visible = SaveManager.is_group_completed(group_number)
 
@@ -49,37 +48,16 @@ func _ready() -> void:
 			button.disabled = true
 			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-	if OS.is_debug_build() and SaveManager.DEBUG_COMPLETE_UP_TO > 0:
-		_debug_complete_up_to = SaveManager.DEBUG_COMPLETE_UP_TO
-		_debug_refresh_badges()
-
-
-func _input(event: InputEvent) -> void:
-	if not OS.is_debug_build():
-		return
-	if not (event is InputEventKey and event.pressed):
-		return
-	if event.keycode == KEY_RIGHT:
-		_debug_complete_up_to = mini(_debug_complete_up_to + 1, GameManager.TOTAL_GROUPS)
-		_debug_refresh_badges()
-	elif event.keycode == KEY_LEFT:
-		_debug_complete_up_to = maxi(_debug_complete_up_to - 1, 0)
-		_debug_refresh_badges()
-
-
-func _debug_refresh_badges() -> void:
-	for i in GameManager.TOTAL_GROUPS:
-		var g := i + 1
-		var node := get_node_or_null("LevelComplete%d" % g)
-		if node:
-			node.visible = _debug_complete_up_to >= g
-		# A group is unlocked when the previous one is completed (g <= completed + 1)
-		var unlocked := g <= _debug_complete_up_to + 1
-		_groups[i].modulate = Color(1, 1, 1, 1) if unlocked else Color(0.4, 0.4, 0.4, 1.0)
-		_groups[i].disabled = not unlocked
-	var levels_done := _debug_complete_up_to * GameManager.LEVELS_PER_GROUP
-	_progress_label.text = "%d/%d" % [levels_done, GameManager.TOTAL_GROUPS * GameManager.LEVELS_PER_GROUP]
-	print("[DEBUG] LevelComplete badges shown: 1 to %d" % _debug_complete_up_to)
+	var target_y := _panel.position.y
+	_panel.position.y = -580
+	var tween := create_tween()
+	tween.tween_property(_panel, "position:y", target_y, 1.0) \
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+		
+	await tween.finished
+	
+	_back_button.visible = true
+	_back_button.pressed.connect(_on_back_pressed)
 
 
 func _update_progress() -> void:
@@ -100,13 +78,21 @@ func _apply_click_mask(button: TextureButton) -> void:
 
 
 func _on_group_selected(group: int) -> void:
-	SoundManager.play_sfx("CutDown - Button sound1")
-	SoundManager.stop_music()
+	await _animate_out()
 	GameManager.start_story_group(group)
 	var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
 	get_tree().change_scene_to_file(scene)
 
+func _animate_out() -> void:
+	SoundManager.play_sfx("CutDown - Button sound1")	
+	_back_button.visible = false
+	var tween := create_tween()
+	tween.tween_property(_panel, "position:y", -580, 1.0) \
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	await tween.finished
+	await get_tree().process_frame
 
 func _on_back_pressed() -> void:
-	SoundManager.play_sfx("CutDown - Button sound1")
+	await _animate_out()
 	get_tree().change_scene_to_file("res://scenes/main_menu/MainMenu.tscn")
+	

@@ -30,13 +30,15 @@ func play_sfx(sound_name: String) -> void:
 
 func play_music(sound_name: String, loop: bool = false) -> void:
 	var stream: AudioStream = load("res://assets/music/%s.mp3" % sound_name)
-	if stream:
-		if stream is AudioStreamMP3:
-			(stream as AudioStreamMP3).loop = loop
-		_music_player.stream = stream
-		_music_player.play()
-	else:
-		print("[SoundManager] Music not found: %s" % sound_name)
+	
+	if !_music_player.playing || _music_player.playing && _music_player.stream != stream:
+		if stream:
+			if stream is AudioStreamMP3:
+				(stream as AudioStreamMP3).loop = loop
+			_music_player.stream = stream
+			_music_player.play()
+		else:
+			print("[SoundManager] Music not found: %s" % sound_name)
 
 
 func stop_music() -> void:

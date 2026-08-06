@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hps4euul7fvk"
-path="res://.godot/imported/LevelSelect.png-255af08b1fa4c27a04077722e7d46c85.ctex"
+uid="uid://bd3hwf84epm6b"
+path="res://.godot/imported/BombConcept.png-adc15ec4805c8914d41adb8f4ac652d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/LevelSelect.png"
-dest_files=["res://.godot/imported/LevelSelect.png-255af08b1fa4c27a04077722e7d46c85.ctex"]
+source_file="res://assets/ConceptArts/BombConcept.png"
+dest_files=["res://.godot/imported/BombConcept.png-adc15ec4805c8914d41adb8f4ac652d7.ctex"]
 
 [params]
 

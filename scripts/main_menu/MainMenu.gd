@@ -28,7 +28,7 @@ func _ready() -> void:
 
 	# Slide title in
 	var target_y := _main_title.position.y
-	_main_title.position.y = -200
+	_main_title.position.y = -260
 	var tween := create_tween()
 	tween.tween_property(_main_title, "position:y", target_y, 1.0) \
 		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
@@ -57,17 +57,31 @@ func _refresh_lock_states() -> void:
 	_endless_button.modulate = Color.WHITE if extra_unlocked else locked_color
 
 
-func _on_story_pressed() -> void:
+func _animate_out() -> void:
 	SoundManager.play_sfx("CutDown - Button sound1")
-	SoundManager.stop_music()
-	get_tree().change_scene_to_file("res://scenes/level_group_select/LevelGroupSelect.tscn")
+	# Slide title in
+	var tween := create_tween()
+	tween.tween_property(_main_title, "position:y", -260, 1.0) \
+		 .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	_story_button.visible = false
+	_endless_button.visible = false
+	_challenge_button.visible = false
+	_quit_button.visible = false
+	_credits.visible = false
+	await tween.finished
+	await get_tree().process_frame
+	
+var _main_menu_scene := preload("res://scenes/level_group_select/LevelGroupSelect.tscn")
+func _on_story_pressed() -> void:
+	await _animate_out()
+	#get_tree().call_deferred("change_scene_to_file", "res://scenes/level_group_select/LevelGroupSelect.tscn")
+	get_tree().change_scene_to_packed(_main_menu_scene)
 
 
 func _on_endless_pressed() -> void:
 	if not SaveManager.are_extra_paths_unlocked():
 		return
-	SoundManager.play_sfx("CutDown - Button sound1")
-	SoundManager.stop_music()
+	await _animate_out()
 	GameManager.start_endless()
 	var scene := GameManager.get_scene_for_mode(GameManager.current_mode)
 	get_tree().change_scene_to_file(scene)
@@ -76,13 +90,12 @@ func _on_endless_pressed() -> void:
 func _on_challenge_pressed() -> void:
 	if not SaveManager.are_extra_paths_unlocked():
 		return
-	SoundManager.play_sfx("CutDown - Button sound1")
-	SoundManager.stop_music()
+	await _animate_out()
 	get_tree().change_scene_to_file("res://scenes/mode_select/ModeSelect.tscn")
 
 
 func _on_quit_pressed() -> void:
-	SoundManager.play_sfx("CutDown - Button sound1")
+	await _animate_out()
 	get_tree().quit()
 
 
@@ -107,7 +120,7 @@ func _spin_wheel(wheel: Sprite2D, spinning_var: String) -> void:
 	set(spinning_var, true)
 	var tween := create_tween()
 	tween.tween_property(wheel, "rotation", wheel.rotation + TAU, 0.6) \
-		 .set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		 .set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(func():
 		wheel.rotation = fmod(wheel.rotation, TAU)
 		set(spinning_var, false)

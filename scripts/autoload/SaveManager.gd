@@ -17,7 +17,6 @@ var unlocked_groups: Array[int] = [1]
 var endless_best: int = 0
 var challenge_best: Dictionary = {}  # { "STANDARD": 0, "REVERSE": 0, ... }
 
-
 func _ready() -> void:
 	load_data()
 	if OS.is_debug_build() and DEBUG_COMPLETE_UP_TO > 0:

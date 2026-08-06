@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dwrcmjaeop3q0" path="res://assets/sprites/LevelPanel.png" id="2_vrspl"]
 [ext_resource type="Texture2D" uid="uid://b8iv4alaxk8gh" path="res://assets/sprites/Wheel.png" id="3_5rxmd"]
 [ext_resource type="Texture2D" uid="uid://cy48yyfawapmq" path="res://assets/sprites/Colors.png" id="3_gg4pt"]
-[ext_resource type="Texture2D" uid="uid://pej5mffrfiov" path="res://assets/sprites/Bomb.png" id="3_gynul"]
 [ext_resource type="Texture2D" uid="uid://ccamhedq7wa42" path="res://assets/sprites/CutText.png" id="3_wnrko"]
+[ext_resource type="Texture2D" uid="uid://cxsxa0282trrx" path="res://assets/sprites/BaseBomb01.png" id="4_2asn1"]
 [ext_resource type="Texture2D" uid="uid://dikiv10bb4d7n" path="res://assets/sprites/CableConnector.png" id="8_wnrko"]
 [ext_resource type="Texture2D" uid="uid://bs6ysir2hwwxb" path="res://assets/sprites/TimerContainer.png" id="9_aptqa"]
 [ext_resource type="Texture2D" uid="uid://74gkle7jxvur" path="res://assets/sprites/Numbers.png" id="10_gynul"]
@@ -264,30 +264,30 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="BombRect" type="Sprite2D" parent="UI" unique_id=1419450099]
-position = Vector2(561, 320)
-scale = Vector2(0.6345703, 0.6345703)
-texture = ExtResource("3_gynul")
+position = Vector2(615.00006, 322.00003)
+scale = Vector2(0.99938387, 0.99938387)
+texture = ExtResource("4_2asn1")
 
 [node name="CablesContainer" type="HBoxContainer" parent="UI" unique_id=1711980026]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 348.0
-offset_top = 504.0
-offset_right = 820.0
-offset_bottom = 854.0
+offset_left = 355.0
+offset_top = 371.0
+offset_right = 827.0
+offset_bottom = 721.0
 grow_horizontal = 2
 alignment = 1
 
 [node name="CablePanel" type="Sprite2D" parent="UI/CablesContainer" unique_id=989673254]
-position = Vector2(238, 30)
-scale = Vector2(0.6146265, 0.6146265)
+position = Vector2(237.80757, 18.984386)
+scale = Vector2(0.5926117, 0.52295125)
 texture = ExtResource("8_wnrko")
 
 [node name="TimerContainerMs" type="Sprite2D" parent="UI" unique_id=1218688354]
-position = Vector2(677.40826, 398.75)
-scale = Vector2(0.55485237, 0.5548523)
+position = Vector2(697.3449, 241.49998)
+scale = Vector2(0.68776375, 0.68776363)
 texture = ExtResource("9_aptqa")
 
 [node name="Number0" type="AnimatedSprite2D" parent="UI/TimerContainerMs" unique_id=1320542606]
@@ -298,26 +298,26 @@ sprite_frames = SubResource("SpriteFrames_xfgu8")
 position = Vector2(-55.870712, 1.8022814)
 sprite_frames = SubResource("SpriteFrames_xfgu8")
 
-[node name="TimerContainerSeconds" type="Sprite2D" parent="UI" unique_id=1887589607]
-position = Vector2(492.40823, 398.75)
-scale = Vector2(0.55485237, 0.5548523)
+[node name="TimerContainerSeconds" type="Sprite2D" parent="UI" unique_id=1539331972]
+position = Vector2(488.34494, 241.49997)
+scale = Vector2(0.68776375, 0.68776363)
 texture = ExtResource("9_aptqa")
 
-[node name="Number0" type="AnimatedSprite2D" parent="UI/TimerContainerSeconds" unique_id=2110210673]
+[node name="Number0" type="AnimatedSprite2D" parent="UI/TimerContainerSeconds" unique_id=1692878924]
 position = Vector2(54.068436, 1.8022814)
 sprite_frames = SubResource("SpriteFrames_xfgu8")
 
-[node name="Number1" type="AnimatedSprite2D" parent="UI/TimerContainerSeconds" unique_id=380055718]
+[node name="Number1" type="AnimatedSprite2D" parent="UI/TimerContainerSeconds" unique_id=854555927]
 position = Vector2(-55.870712, 1.8022814)
 sprite_frames = SubResource("SpriteFrames_xfgu8")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI" unique_id=1082980823]
-position = Vector2(583.4081, 401.75003)
-scale = Vector2(0.537037, 0.5370371)
+position = Vector2(589, 243)
+scale = Vector2(0.82407516, 0.8240753)
 texture = ExtResource("11_60iot")
 
 [node name="ColorSelector" type="Sprite2D" parent="." unique_id=1020373860]
-position = Vector2(852, 118.00001)
+position = Vector2(978, 116)
 scale = Vector2(1.385, 1.385)
 texture = ExtResource("2_365ku")
 

@@ -45,6 +45,7 @@ var _mode_panel_end_pos: Vector2
 # ---------------------------------------------------------------------------
 
 func _ready() -> void:
+	SoundManager.stop_music()
 	_mode_panel_end_pos    = _mode_panel.position
 	_mode_panel.visible    = false
 	_color_selector.modulate.a = 0
