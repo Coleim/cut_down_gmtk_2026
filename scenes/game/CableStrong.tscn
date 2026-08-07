@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://cqmjt15ig3r52"]
+
+[ext_resource type="Script" uid="uid://yjjmr3xn28qa" path="res://scripts/game/CableStrong.gd" id="1_11cq3"]
+[ext_resource type="Texture2D" uid="uid://dyat7jdpk5n13" path="res://assets/sprites/CablesStrong.png" id="3_qt7of"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt7of"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 6600, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60gjk"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 8400, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11cq3"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 6000, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ljwu"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 7800, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tihc"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 7200, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjdcl"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 600, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hm4h"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 2400, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhkua"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 0, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko8du"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 1800, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24lj0"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 1200, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e485o"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 3600, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21ksw"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 5400, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gdfy"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 3000, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57413"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 4800, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81x1r"]
+atlas = ExtResource("3_qt7of")
+region = Rect2(0, 4200, 50, 600)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vdwqs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt7of")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60gjk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11cq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ljwu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tihc")
+}],
+"loop": 1,
+"name": &"cut",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjdcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hm4h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhkua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko8du")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24lj0")
+}],
+"loop": 1,
+"name": &"full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e485o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21ksw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gdfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57413")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81x1r")
+}],
+"loop": 1,
+"name": &"halfcut",
+"speed": 5.0
+}]
+
+[node name="Cable" type="Control" unique_id=1600611072]
+custom_minimum_size = Vector2(80, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 80.0
+offset_bottom = 200.0
+script = ExtResource("1_11cq3")
+
+[node name="Cables" type="AnimatedSprite2D" parent="." unique_id=254386696]
+position = Vector2(38, 301)
+sprite_frames = SubResource("SpriteFrames_vdwqs")
+animation = &"cut"

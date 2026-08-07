@@ -4,7 +4,6 @@ class_name GameBase
 ## Base scene script for all game modes.
 ## Subclasses override virtual methods to change behaviour.
 
-const CABLE_SCENE: PackedScene = preload("res://scenes/game/Cable.tscn")
 
 # ---------------------------------------------------------------------------
 # Node references — must exist in every inherited scene
@@ -103,6 +102,10 @@ func _get_preview_sequence() -> Array:
 	return _cable_order
 
 
+func get_cable_scene() -> PackedScene:
+	return preload("res://scenes/game/Cable.tscn")
+	
+	
 ## Called when a cable is clicked.
 ## Override for StringCables (double-click required).
 func _handle_cable_cut(cable: Cable) -> void:
@@ -210,7 +213,7 @@ func _spawn_cables(interactable: bool = true) -> void:
 	shuffled.shuffle()
 
 	for entry in shuffled:
-		var cable: Cable = CABLE_SCENE.instantiate()
+		var cable: Cable = get_cable_scene().instantiate()
 		cable.cable_color  = entry["color"]
 		cable.color_name   = entry["name"]
 		cable.color_index  = entry["color_index"]

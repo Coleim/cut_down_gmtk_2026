@@ -3,6 +3,26 @@
 [ext_resource type="Script" uid="uid://d2wpv0xxtufgs" path="res://scripts/game/Cable.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cpo6h6svj137g" path="res://assets/sprites/Cables.png" id="2_bhg84"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhg84"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 3600, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4fil"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 5400, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buqn6"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 3000, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r40wi"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 4200, 50, 600)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cr783"]
+atlas = ExtResource("2_bhg84")
+region = Rect2(0, 4800, 50, 600)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_full_red"]
 atlas = ExtResource("2_bhg84")
 region = Rect2(0, 600, 50, 600)
@@ -23,43 +43,23 @@ region = Rect2(0, 1800, 50, 600)
 atlas = ExtResource("2_bhg84")
 region = Rect2(0, 1200, 50, 600)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cut_red"]
-atlas = ExtResource("2_bhg84")
-region = Rect2(0, 3600, 50, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cut_blue"]
-atlas = ExtResource("2_bhg84")
-region = Rect2(0, 5400, 50, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cut_green"]
-atlas = ExtResource("2_bhg84")
-region = Rect2(0, 3000, 50, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cut_yellow"]
-atlas = ExtResource("2_bhg84")
-region = Rect2(0, 4200, 50, 600)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cut_purple"]
-atlas = ExtResource("2_bhg84")
-region = Rect2(0, 4800, 50, 600)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_vdwqs"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cut_red")
+"texture": SubResource("AtlasTexture_bhg84")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cut_blue")
+"texture": SubResource("AtlasTexture_c4fil")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cut_green")
+"texture": SubResource("AtlasTexture_buqn6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cut_yellow")
+"texture": SubResource("AtlasTexture_r40wi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cut_purple")
+"texture": SubResource("AtlasTexture_cr783")
 }],
 "loop": 1,
 "name": &"cut",
@@ -97,4 +97,4 @@ script = ExtResource("1")
 [node name="Cables" type="AnimatedSprite2D" parent="." unique_id=254386696]
 position = Vector2(38, 301)
 sprite_frames = SubResource("SpriteFrames_vdwqs")
-animation = &"full"
+animation = &"cut"
